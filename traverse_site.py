@@ -35,7 +35,7 @@ def start_up(tracker):
 	tracker.click_button_xpath(button_xpath='//*[@id="id1e"]/option[@value="3"]')
 	time.sleep(0.5)
 
-	# Hard-coded selection for 'Case Type'
+	# Hard-coded selection for 'Case Type': "CVG - LANDLORD/TENANT"
 	tracker.click_button_xpath(button_xpath='//*[@id="id36"]/option[7]')
 	time.sleep(0.5)
 
