@@ -1,5 +1,8 @@
 import municourts
 from municourts import MuniCourtTracker
+
+from captcha.recaptcha_v2 import RecaptchaV2
+
 import time
 import datetime
 import sys
@@ -59,6 +62,9 @@ def fill_dates_and_press(tracker, date_string):
 def main():	
 	date = START_DATE
 	tracker = MuniCourtTracker()
+	
+	# captcha = RecaptchaV2()
+	# captcha.solve(tracker.driver, sitekey, apikey)
 
 	while date != END_DATE:
 		time.sleep(2)

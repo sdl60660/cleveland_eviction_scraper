@@ -19,7 +19,13 @@ START_PAGE = 'https://clevelandmunicipalcourt.org/public-access'
 class MuniCourtTracker():
 
     def __init__(self):
-        self.driver = webdriver.Chrome()
+
+        chrome_options = webdriver.ChromeOptions()
+        # chrome_options.add_argument('--no-sandbox')
+        # chrome_options.add_argument('--headless')
+        
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+
         self.driver.get(START_PAGE)
         self.driver.implicitly_wait(2)
 
