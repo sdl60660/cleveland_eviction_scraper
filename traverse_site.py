@@ -34,29 +34,33 @@ def start_up(tracker):
 	time.sleep(2)
 
 	# Hard-coded selection for 'Number of Results'
-	tracker.click_button_xpath(button_xpath='//*[@id="id39"]/option[12]')
-	tracker.click_button_xpath(button_xpath='//*[@id="id1e"]/option[@value="3"]')
+	tracker.click_button_xpath(button_xpath='//*[@name="bodyLayout:topSearchPanel:pageSize"]/option[@value="2"]')
+	# Hard-coded selection for 'Case Type': "CVG - LANDLORD/TENANT" (Pre-select, this needs to be "clicked" twice)
+	tracker.click_button_xpath(button_xpath='//*[@name="caseCd"]/option[7]')
+
+	# tracker.click_button_xpath(button_xpath='//*[@name="ptyCd"]/option[12]')
+	# tracker.click_button_xpath(button_xpath='//*[@id="id22"]/option[@value="2"]')
 	time.sleep(0.5)
 
 	# Hard-coded selection for 'Case Type': "CVG - LANDLORD/TENANT"
-	tracker.click_button_xpath(button_xpath='//*[@id="id36"]/option[7]')
-	time.sleep(0.5)
+	tracker.click_button_xpath(button_xpath='//*[@name="caseCd"]/option[7]')
+	# time.sleep(0.5)
 
 	# Hard-coded selection for 'Party Type'
 	for x in range(2):
-		tracker.scroll_to_element(element_xpath='//*[@id="id39"]/option[12]')
+		tracker.scroll_to_element(element_xpath='//*[@name="ptyCd"]/option[12]')
 		time.sleep(0.5)
 
 def fill_dates_and_press(tracker, date_string):
 	# Fill Start Date box
-	tracker.fill_box(element_id='id33', text=date_string)
+	tracker.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:beginDate"]', text=date_string)
 	time.sleep(0.2)
 
 	# Fill End Date box
-	tracker.fill_box(element_id='id34', text=date_string)
+	tracker.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:endDate"]', text=date_string)
 
 	# Press Submit button
-	tracker.click_button_xpath(button_xpath='//*[@id="id3a"]')
+	tracker.click_button_xpath(button_xpath='//*[@name="submitLink"]')
 	#tracker.wait_until_loaded('//*[@id="grid"]/tbody/tr//a')
 
 def main():	
@@ -71,15 +75,15 @@ def main():
 		date_string = datetime.datetime.strftime(date, '%m/%d/%Y')
 		print(date_string)
 
-		try:
-			start_up(tracker)
-			fill_dates_and_press(tracker, date_string)
-		except:
-			tracker.quit()
-			tracker = MuniCourtTracker()
-			time.sleep(2)
-			start_up(tracker)
-			fill_dates_and_press(tracker, date_string)
+		# try:
+		start_up(tracker)
+		fill_dates_and_press(tracker, date_string)
+		# except:
+			# tracker.quit()
+			# tracker = MuniCourtTracker()
+			# time.sleep(2)
+			# start_up(tracker)
+			# fill_dates_and_press(tracker, date_string)
 		
 		errors = tracker.driver.find_elements_by_xpath('//*[@id="id3b"]/ul/li/span[@class="feedbackPanelERROR"]')
 		while len(errors) > 0:

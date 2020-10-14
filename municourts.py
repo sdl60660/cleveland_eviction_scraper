@@ -19,24 +19,28 @@ START_PAGE = 'https://clevelandmunicipalcourt.org/public-access'
 class MuniCourtTracker():
 
     def __init__(self):
-
+        cookies = [{'domain': 'eservices.cmcoh.org', 'httpOnly': True, 'name': 'JSESSIONID', 'path': '/eservices', 'secure': True, 'value': '6F5E90E3959A8E7C0EF941A7FE7808F8'}]
+        
         chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument('--no-sandbox')
         # chrome_options.add_argument('--headless')
         
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
-
         self.driver.get(START_PAGE)
+        for cookie in cookies:
+            self.driver.add_cookie(cookie)
         self.driver.implicitly_wait(2)
 
         # Get to search page
         for button in ["   I Accept   ", "Click Here", "Case Type Search"]:
             try:
                 self.click_button_name(button_name=button)
-                time.sleep(1)
+                time.sleep(4)
             except:
                 time.sleep(10)
                 self.click_button_name(button_name=button)
+
+        print(self.driver.get_cookies())
 
     def __repr__(self):
         return ('<Selenium Driver for CLE Municipal Courts. Current Page: {}>'.format(str(self.driver.current_url)))
@@ -54,9 +58,15 @@ class MuniCourtTracker():
         actions.click()
         actions.perform()
 
-    def fill_box(self, element_id, text):
-        self.driver.find_element_by_id(element_id).clear()
-        element = self.driver.find_element_by_id(element_id)
+    def fill_box(self, element_id, element_xpath, text):
+        if element_id:
+            self.driver.find_element_by_id(element_id).clear()
+            element = self.driver.find_element_by_id(element_id)
+        elif element_xpath:
+            self.driver.find_element_by_xpath(element_xpath).clear()
+            element = self.driver.find_element_by_xpath(element_xpath)
+        else:
+            raise ValueError('Must specify either an element_id or element_xpath')
         element.send_keys(text)
 
     def get_num_table_rows(self):
@@ -179,6 +189,7 @@ class MuniCourtTracker():
                       'Costs', 'Disposition Status', 'Disposition Date']
                       # NEW FIELDS HERE
             out_csv = csv.DictWriter(f, fieldnames=fields)
+            out_csv.writeheader()
             out_csv.writerow(dictionary)
 
     def back_page(self):
