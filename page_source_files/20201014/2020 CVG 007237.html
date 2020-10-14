@@ -1,0 +1,1577 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%; overflow: hidden;"><!-- $Id: EServiceBaseLayoutPage.html,v 1.13 2017/04/06 18:47:44 zliu Exp $ --><head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<title>CourtView Justice Solutions</title>
+	<script type="text/javascript">window.cjsBrowserRenderStartTime = new Date();</script>
+	<link rel="icon" type="image/png" href="images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="css/eaccess.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/initialize.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_fonts.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_header.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_application.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_globalNav.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_footer.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_forms.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_containers.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_tables.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_buttons.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/efile.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/epay.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_Calendar.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_configStyles.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_PortalDashboard.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_NotifyPage.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_printStyle.css?v=1.23.03" media="print" />
+	<link href="css/eServ_Phone.css?v=1.23.03" rel="stylesheet" type="text/css" media="only screen and (min-device-width:0px) and (max-device-width:380px)" />
+	<link href="css/eServ_Tablet.css?v=1.23.03" rel="stylesheet" type="text/css" media="only screen and (min-device-width:381px) and (max-device-width:900px)" />
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+  <!--[if lte IE 7]>
+	
+	<style type="text/css">
+	.ui-dropdown-content ul ul li { display: inline; width: 100%; }
+	.ui-dropdown-content ul ul li a { border-right: none; width: 100%; display: inline-block; }
+	</style>
+  <![endif]-->
+<script type="text/javascript" src="resources/org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference/jquery/jquery-1.5.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference/uilightness/jquery-ui-1.8.10.custom.css" />
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.layout.LayoutJQueryUICustomJavaScriptResourceReference/jquery.ui.custom.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.layout.LayoutJavaScriptResourceReference/jquery.layout.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.window.WindowJavaScriptResourceReference/jquery.window.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference/jquery.ui.mouse.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference/jquery.ui.dialog.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.button.ButtonJavascriptResourceReference/jquery.ui.button.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference/jquery.ui.draggable.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference/jquery.ui.resizable.min.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterJavaScriptResourceReference/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterParsersJavaScriptResourceReference/jquery.tablesorter.parsers.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterMetadataJavaScriptResourceReference/jquery.metadata.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.HoverIntentJavaScriptResourceReference/jquery.hoverIntent.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.ClueTipJavaScriptResourceReference/jquery.cluetip.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.BodyLayoutPlugin/layout/jquery.layout.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.window.WindowCSSResourceReference/jquery.window.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterCSSResourceReference/jquery.tablesorter.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.ClueTipCSSResourceReference/jquery.cluetip.css" />
+<script type="text/javascript" id="wiquery-gen-1602697853046">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+(function($) {
+$(document).ready(function() {
+window.bodyLayout=$('#body').layout({name: 'bodyLayout', defaults: {size: 'auto', minSize: 50, paneClass: 'pane', resizerClass: 'resizer', togglerClass: 'toggler', buttonClass: 'button', togglerLength_open: 35, togglerLength_closed: 35, fxName: 'slide', contentSelector: '.content', contentIgnoreSelector: 'span', hideTogglerOnSlide: true, togglerTip_open: 'Close This Pane', togglerTip_closed: 'Open This Pane', resizerTip: 'Resize This Pane', fxSpeed_open: 750, fxSpeed_close: 1500, fxSettings_open: { easing: 'easeInQuint' }, fxSettings_close: { easing: 'easeInQuint' }}, north: {size: 'auto', minSize: 82, closable: false, resizable: false, slidable: false, spacing_open: 0, togglerLength_closed: -1, fxName: 'none'}, south: {size: 'auto', maxSize: 44, closable: false, resizable: false, slidable: false, spacing_open: 0, togglerLength_closed: -1, fxName: 'none'}, east: {initHidden: true, paneSelector: '#EastPane', size: 'auto'}, west: {size: 'auto', minSize: 200, togglerTip_open: 'Close Navigations', togglerTip_closed: 'Open Navigations', resizerTip: 'Resize Navigations', closable: true, resizable: true, fxName: 'none', paneSelector: '#WestPane', initClosed: true, slidable: true, slideTrigger_open: 'click', slideTrigger_close: 'click', togglerAlign_open: 'center', togglerAlign_closed: 'center'}, center: {paneSelector: '#mainContent'}});
+$('#id1782f').dialog({autoOpen: false, position: 'center', open: function(event, ui) {
+$('#id1782f').parents('.ui-dialog:first').find('.ui-dialog-titlebar-close').hide();
+}, minimizable: false, maximizable: false, modal: true, resizable: false, title: 'Please Wait...'});
+$('#id1783d').tablesorter({debug: false, headers: { 0: { sorter: 'cjsDate'}, 1: { sorter: 'text'}, 2: { sorter: 'text'}, 3: { sorter: 'text'}, 4: { sorter: 'text'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id1783e').tablesorter({debug: false, headers: { 0: { sorter: 'cjsDate'}, 1: { sorter: false}, 2: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id1783f').tablesorter({debug: false, headers: { 0: { sorter: 'text'}, 1: { sorter: 'cjsCurrency'}, 2: { sorter: 'cjsCurrency'}, 3: { sorter: 'cjsCurrency'}, 4: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id17840').cluetip({positionBy: 'auto', activation: 'hover', arrows: false, sticky: false, width: 550, showTitle: false, local: true, mouseOutClose: true, cluetipClass: 'jtip', waitImage: true});
+$('#id17841').tablesorter({debug: false, headers: { 0: { sorter: 'digit'}, 1: { sorter: 'cjsDate'}, 2: { sorter: 'text'}, 3: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id17842').tablesorter({debug: false, headers: { 0: { sorter: 'text'}, 1: { sorter: 'cjsDate'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+});
+})(jQuery);
+
+/*--&gt;]]&gt;*/</script>
+
+<script type="text/javascript" src="resources/org.apache.wicket.markup.html.WicketEventReference/wicket-event.js"></script>
+<script type="text/javascript" src="resources/org.apache.wicket.ajax.WicketAjaxReference/wicket-ajax.js"></script>
+<script type="text/javascript" id="closeDialogJS">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+$('#id1782f').dialog('close');
+/*--&gt;]]&gt;*/</script>
+
+<script type="text/javascript" src="resources/com.cjs.wicket.component.CancelEventPropagationResource/CancelEventPropagation.js"></script>
+<script type="text/javascript" src="resources/org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow/res/modal.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow/res/modal.css" />
+</head>
+<body id="body" style="overflow: hidden; position: relative; height: 100%; margin: 0px; padding: 0px; border: none;">
+<div class="ui-layout-north pane pane-north open" pane="north" style="visibility: visible; display: block; position: absolute; margin: 0px; z-index: 2; top: 0px; bottom: auto; left: 0px; right: 0px; width: auto; height: 81px;">
+	<div id="header">
+<div class="globalNavigation" id="id17843">
+<ul id="navigationSectionLeft" class="MenuBarHorizontal">
+<!--
+	<li wicket:id="menu"></li>
+-->
+	<li class="navLoggedInUser"><a id="id17844" href="#" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2UyLCaemgPQg6dA2KdZgO3lHUSj2EQY7btkJRjVk8Vj7wRlET-B3On77cVcqXZx1-kbSIvoVv04rOOOQ*AGASRhU9kESxihlDueZbvUXQOPzO',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id17844') != null;}.bind(this));return !wcall;" title="Your Account"><span title="Manage Your Account"></span></a></li>
+	<li><a class="link" href="home.page">Home</a></li>
+	<li><a class="link" href="?x=aMgOFpn7*qdp8WXFeya2UyLCaemgPQg6dA2KdZgO3lHUSj2EQY7btosP8fh-hDo5rUOZNKyplYTQ2jdCS-jM4smtsPsdRxA87D5eJjh5FZbplxu6R5yc1g">Search</a></li>
+ 	<li><a class="link" title="Search Results" href="?x=aMgOFpn7*qdp8WXFeya2UyLCaemgPQg6dA2KdZgO3lHUSj2EQY7btqPJQw0wtPoRPZyiFSrG50rpzN5ipmcuyqlVlUk9cXesXdSawclPyiJ30koY3*PAVQ">Results</a></li>
+	<li><a class="link" href="efile.page">eFile</a></li>
+	
+	
+	<li></li>
+	
+	
+	
+</ul>
+<ul id="navigationSectionRight" class="MenuBarHorizontal">
+	
+	
+	<li><a class="link" id="id17845" href="login.page">Log on</a></li>
+	
+	<li class="link"></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="WestPane" class="ui-layout-west pane pane-west closed" pane="west" style="visibility: visible; display: none; position: absolute; margin: 0px; z-index: 2; left: 0px; right: auto; top: 82px; bottom: 44px; height: 802px; width: 199px; float: none;">
+	<div>
+<div class="dynamicNav" id="id17846">
+	<div class="menuSection">
+	<div class="sectionHeader">
+		<h3><span title="">ATTORNEY REGISTRATION</span></h3>
+		
+	</div>
+	<ul class="menuLinks">
+		<li><span>
+<a href="https://eservices.cmcoh.org/eservices/register.page?prt" title="" target="_blank">Attorney Registration</a>
+</span></li><li><span>
+<a href="https://eservices.cmcoh.org/eservices/register.page?efile=true" title="">Pro Se Litigants Registraition</a>
+</span></li>
+		<li></li>
+	</ul>
+	</div>
+	
+</div>
+
+
+
+
+</div>
+</div>
+<div id="EastPane" class="ui-layout-east pane pane-east" pane="east" style="visibility: visible; display: none; position: absolute; margin: 0px; z-index: 2; left: auto; right: 0px; top: 82px; bottom: 44px; height: 802px; width: 48px; float: none;">
+</div>
+<div id="mainContent" pane="center" class="pane pane-center open" style="visibility: visible; display: block; position: absolute; margin: 0px; z-index: 2; left: 6px; right: 0px; top: 82px; bottom: 44px; height: 792px; width: 1192px;">
+	
+<div id="caseDetail">
+	<div id="caseDetailHeader">
+
+
+	
+
+
+
+
+	
+		<div id="titleBar" class="sectionHeader">
+			<h2>
+				
+		
+			
+			2020 CVG 007237          ROWE, TIMOTHY R -VS-  WILSON, CARMEN et al      ADMINH
+		
+		
+		
+		
+		
+		
+		
+
+			</h2>
+		</div>
+		<div id="caseHeader" class="caseInfo formSec bgClr1">
+			<table>
+				<tbody><tr><th></th>   <!-- col1 -->
+				<th></th>   <!-- col2 -->
+				<th></th>   <!-- col3 -->
+				
+				</tr><tr><td>
+		
+			<dt>Case Type</dt>
+			<dd class="displayData">CVG  -  LANDLORD/TENANT</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td>
+		
+			<dt>Action:</dt>
+			<dd class="displayData">EVICTION - 1 DEFENDANT</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td></tr>
+					
+				<tr><td>
+		
+			<dt>Case Status:</dt>
+			<dd class="displayData">OPEN</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td>
+					<td></td></tr>
+					
+				<tr><td>
+		
+			<dt>File Date:</dt>
+			<dd class="displayData">08/13/2020</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td>
+					<td></td></tr>
+					
+				<tr><td></td>
+					<td>
+		
+			<dt>Next Event:</dt>
+			<dd class="displayData">
+<!-- $Id: CourtViewNextEventPanel.html,v 1.1 2011/04/12 18:55:38 stheisen Exp $ -->
+  <span>11/12/2020</span>
+</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td></tr>
+					
+				<tr><td></td>
+					<td></td>
+					<td></td></tr>
+			</tbody></table>
+
+			<div class="buttonBar">
+				<div id="id17847">
+	
+</div>
+				
+				
+				<div id="id17848" style="display:none"></div>
+			</div>
+		</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+	<div class="tabSection">
+		<div id="id17849">
+<div class="tab-row">
+<ul>
+	<li class="tab0 selected">
+		<a href="?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD56GIVfAsiCLyTgtWznAwNolIB1*08z8thtynSjk6rvx" id="id1784a" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD56GIVfAsiCLcEhNCzqyYceMdH4BduUGclyrD-Ffc4bT',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1784a') != null;}.bind(this));return !wcall;"><span>All Information</span></a>
+	</li><li class="tab1">
+		<a href="?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpDz3egxUVveZ8EGvvr5kzZzKgIx285bTCjHXTzvLZYx1z" id="id1784b" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpDz3egxUVveZ8DN4tVZmr7hE6zz-AengTsUf4oQePLXoP',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1784b') != null;}.bind(this));return !wcall;"><span>Party</span></a>
+	</li><li class="tab2">
+		<a href="?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpDwc4bTdL-WMxdmmX6NrHIF7FIIUyExbSq-MmBPrR5ccj" id="id1784c" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpDwc4bTdL-WMxL3s2S2TdTzp8eTEL-HNNQxpwF-1tTqaN',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1784c') != null;}.bind(this));return !wcall;"><span>Event</span></a>
+	</li><li class="tab3">
+		<a href="?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpDzV74NZ248cZo0vOIHi8x-wWtKej*tGydUbB9PbXzlm8" id="id1784d" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpDzV74NZ248cZEOeL1uFh7WETI10NK6vtfE-4sM7bwfD9',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1784d') != null;}.bind(this));return !wcall;"><span>Docket</span></a>
+	</li><li class="tab4">
+		<a href="?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD6P-baDipbm9mdO3T2qIicgmmU8YZva97aetjkiYbv2R" id="id1784e" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD6P-baDipbm9Eozc8*viV6kxVYpNa4URY8HROPqQqYyd',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1784e') != null;}.bind(this));return !wcall;"><span>Financial</span></a>
+	</li><li class="tab5">
+		<a href="?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD*fcqEFWnp9d0Qo4bkFAvxROZUOSIFIjkFjXaVcW1eOB" id="id1784f" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD*fcqEFWnp9dYYHNnIMykW2LlvtbvrSXBMSwQMdDoj9y',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1784f') != null;}.bind(this));return !wcall;"><span>Receipt</span></a>
+	</li><li class="tab6">
+		<a href="?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD2fckdtEgflJrHS51-zWY7oyc92WA1iv5NHxZI0UH5qu" id="id17850" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD2fckdtEgflJ0QHehYle-7ejvnKLtDpJFrB3d3lW3rO6',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id17850') != null;}.bind(this));return !wcall;"><span>Disposition</span></a>
+	</li><li class="tab7 last">
+		<a href="?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD3uInWt6GQKQF6vgQMZKVWcebff1xYpZ4KHH0z4t*TUp" id="id17851" onclick="var wcall=wicketAjaxGet('?x=aMgOFpn7*qdp8WXFeya2U-v*vWOqJjI7OlwEZKn-HW38-qK4ZhEcIDhfp**pFeb5bwBf6vRtFBW4giQFcWTpD3uInWt6GQKQA6M*BLhSPj2AdKRP4NJGAP*Vz7ZvJell',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id17851') != null;}.bind(this));return !wcall;"><span>Additional Fields</span></a>
+	</li>
+</ul>
+</div>
+<div class="tab-panel">
+
+<div class="allInfoPanel" id="id17852">
+
+
+	
+
+
+
+
+	
+<div id="id17853" style="display:none">
+	
+</div>
+<div id="id17854" style="display:none">
+	
+</div>
+<div id="ptyInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4>Party Information</h4></div>
+	<div id="ptyContainer" class="infoChildSection">
+		<div class="rowodd">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			ROWE, TIMOTHY R
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - PLAINTIFF
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">6690 BIG CREEK PKWY</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>MIDDLEBURG HEIGHTS</span>, <span>OH        </span> <span>44130     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			<dd class="displayData">
+<span>(216)676-9351</span>
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div><div class="roweven">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			WILSON, CARMEN
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - DEFENDANT
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">4628 W 130ST</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44113     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div><div class="rowodd">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			WILSON, CARMEN
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - DEFENDANT
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">13810 WEST AVE</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44111     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div><div class="roweven">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			4628 WEST 130ST UP REAR
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - PROPERTY ADDRESS
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">4628 WEST 130ST UP REAR</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44113     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id17855">
+
+
+	
+
+
+
+
+	
+<div id="eventInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Events</div></h4></div>
+	<table id="id1783d" summary="Table displaying the events related to this case ordered chronologically." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Date/Time</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Location</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Type</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Result</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Event Judge</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">09/14/2020  09:00 AM</td><td>3RD FLOOR COURTROOM A</td><td>ATTY FIRST CAUSE HRG AM</td><td>DISMISS FOR WANT OF PROS</td><td>HOUSING MAGISTRATE 3A</td>
+        </tr><tr class="rowodd">
+                <td scope="row">11/12/2020  01:30 PM</td><td>3RD FLOOR COURTROOM A</td><td>SECOND CAUSE HEARING</td><td></td><td>HOUSING MAGISTRATE 3A</td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id17856">
+
+
+	
+
+
+
+
+	
+<div id="docketInfo" class="subsection2 bgClr1 financialSection">
+	<div class="subSectionHeader"><h4><div>Docket Information</div></h4></div>
+	<table id="id1783e" class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Date</span>
+			</th>
+		
+			<th scope="col">
+					<span>Docket Text</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Owed</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">08/13/2020</td><td class="formattedText">BACK FILED IMAGES</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/13/2020</td><td class="formattedText">REQUEST FOR CERTIFIED MAIL FILED WITH CLERK AND PAID BY:
+TIMOTHY R ROWE (PLAINTIFF);  Receipt: 3214149  Date: 08/13/2020</td><td class="currency">$7.00</td>
+        </tr><tr class="roweven">
+                <td scope="row">08/13/2020</td><td class="formattedText">EVICTION  COMPLAINT FILED BY
+TIMOTHY R ROWE (PLAINTIFF);  Receipt: 3214149  Date: 08/13/2020</td><td class="currency">$110.00</td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/13/2020</td><td class="formattedText">FIRST CAUSE HEARING
+Event: ATTY FIRST CAUSE HRG AM 
+Date: 09/14/2020    Time: 9:00 am 
+Judge: HOUSING MAGISTRATE 3A    Location: 3RD FLOOR COURTROOM A
+
+Result: DISMISS FOR WANT OF PROS</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/13/2020</td><td class="formattedText">SECOND CAUSE HEARING
+Event: SECOND CAUSE HEARING 
+Date: 11/12/2020    Time: 1:30 pm 
+Judge: HOUSING MAGISTRATE 3A    Location: 3RD FLOOR COURTROOM A</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/13/2020</td><td class="formattedText">EVICTION HEARING INFORMATION PROVIDED TO PLAINTIFF/ATTORNEY
+
+CMS- (F) EVICTION HEARING NOTICE
+Sent on:  08/13/2020  14:24:34.85</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/13/2020</td><td class="formattedText">REQUEST IN PERSON HEARING COMMUNICATION FILED BY:
+TIMOTHY R ROWE (PLAINTIFF);</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/17/2020</td><td class="formattedText">CERTIFIED MAIL ISSUED TO     ON
+Issue Date:  08/17/2020
+Service:  COMP &amp; FORCIBLE ENTRY AND DETAINER
+Method:  (CV) ELECTRONIC CERTIFIED MAIL
+Cost Per:  $
+
+
+   WILSON, CARMEN
+   4628 W 130ST
+   CLEVELAND, OH   44113
+   Tracking No: 9171901552070912455074
+
+
+   WILSON, CARMEN
+   13810 WEST AVE
+   CLEVELAND, OH   44111
+   Tracking No: 9171901552070912455081
+
+</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/17/2020</td><td class="formattedText">CIVIL SUMMONS ISSUED
+
+INTAKE- (N) CIVIL SUMMONS  FORCIBLE ENT &amp; DETAINER
+Sent on:  08/17/2020  09:42:19.38
+CARMEN WILSON (DEFENDANT); CARMEN WILSON (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/17/2020</td><td class="formattedText">CIVIL SUMMONS ISSUED
+
+INTAKE- (N) CIVIL SUMMONS  FORCIBLE ENT &amp; DETAINER
+Sent on:  08/17/2020  09:48:33.37
+CARMEN WILSON (DEFENDANT); CARMEN WILSON (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/17/2020</td><td class="formattedText">REGULAR MAIL ISSUED
+Issue Date:  08/17/2020
+Service:  COMP &amp; FORCIBLE ENTRY AND DETAINER
+Method:  (CV) REGULAR MAIL
+Cost Per:  $
+
+
+   WILSON, CARMEN
+   4628 W 130ST
+   CLEVELAND, OH   44113
+   Tracking No: R000172959
+
+
+   WILSON, CARMEN
+   13810 WEST AVE
+   CLEVELAND, OH   44111
+   Tracking No: R000172960
+
+</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/17/2020</td><td class="formattedText">CIVIL SUMMONS ISSUED
+INTAKE- (N) CIVIL SUMMONS  FORCIBLE ENT &amp; DETAINER
+Sent on:  08/17/2020  10:05:32.00</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/19/2020</td><td class="formattedText">DELIVERED
+USPS DELIVERED LEFT WITH INDIVIDUAL - Service Date: 08/19/2020
+Tracking Number: 91 7190 1552 0709 1245 5081
+CARMEN WILSON (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/19/2020</td><td class="formattedText">SIGNATURE
+Signature Received from USPS
+CARMEN WILSON Signature Document Attached
+Tracking Number: 7190 1552 0709 1245 5081
+CARMEN WILSON (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/20/2020</td><td class="formattedText">THIS MATTER IS BEFORE THE COURT ON PLAINTIFF'S REQUEST FOR AN IN PERSON HEARING DUE TO HIS LACK OF A VIRTUAL HEARING COMPATIBLE DEVICE. THE VIRTUAL HEARING REMAINS SET FOR SEPTEMBER 14, 2020 AT 9:00/AM. PLAINTIFF SHALL APPEAR IN COURT; 
+AT THE JUDICE CENTER, 1200 ONTARIO STREET, CLEVELAND OHIO, COURTROOM 3-A, AT THE DATE AND TIME INDICATED ABOVE. 
+THE PLAINTIFF SHALL PARTICIPATE IN THE VIRTUAL HEARING USING COURT VIRTUAL HEARING EQUIPMENT. HOUSING COURT STAFF SHALL PRESENT TO ASSIST LITIGANTS, IF NECESSARY, WITH THE COURT'S VIRTUAL HEARING EQUIPMENT.</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/26/2020</td><td class="formattedText">UNCLAIMED
+USPS UNCLAIMED/BEING RETURNED TO SENDER - Service Date: 08/26/2020
+Tracking Number: 91 7190 1552 0709 1245 5074
+CARMEN WILSON (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/31/2020</td><td class="formattedText">UNCLAIMED
+USPS UNCLAIMED/BEING RETURNED TO SENDER - Service Date: 08/31/2020
+Tracking Number: 91 7190 1552 0709 1245 5074
+CARMEN WILSON (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">09/29/2020</td><td class="formattedText">ON APPLICATION OF THE PLAINTIFF THIS CASE IS DISMISSED WITHOUT PREJUDICE AT PLAINTIFF'S COSTS FOR WHICH JUDGMENT IS RENDERED.  AS TO 1ST CAUSE ONLY.
+TIMOTHY R ROWE (PLAINTIFF);</td><td class="currency"></td>
+        </tr>
+</tbody>
+</table>
+	  
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id17857">
+
+
+	
+
+
+
+
+	
+<div id="financialInfo" class="subsection2 bgClr1 financialSection">
+	<div class="subSectionHeader"><h4><div>Financial Summary</div></h4></div>
+	<table id="id1783f" summary="Table displaying the dockets for this case ordered chronologically by date." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Cost Type</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Owed</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Paid</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Adjusted</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Outstanding</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+	<tr class="footers">
+		
+			<th><span></span></th>
+		
+			<th class="currency">$117.00</th>
+		
+			<th class="currency">$117.00</th>
+		
+			<th class="currency">$0.00</th>
+		
+			<th class="currency">$0.00</th>
+		
+	</tr>
+
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td>COSTS</td><td class="currency">$117.00</td><td class="currency">$117.00</td><td class="currency">
+	
+	
+	$0.00
+	<div id="id1783c" style="display:none"></div>
+</td><td class="currency">$0.00</td>
+        </tr>
+</tbody>
+</table>
+	
+	
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id17858">
+
+
+	
+
+
+
+
+	
+<div id="receiptInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Receipts</div></h4></div>
+	<table id="id17841" summary="Table displaying the Receipts on this case." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Receipt Number</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Receipt Date</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Received From</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Payment Amount</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+	<tr class="footers">
+		
+			<th><span></span></th>
+		
+			<th><span></span></th>
+		
+			<th><span></span></th>
+		
+			<th class="currency">$117.00</th>
+		
+	</tr>
+
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td>3214149</td><td scope="row">08/13/2020</td><td>ROWE, TIMOTHY R                         </td><td class="currency">$117.00</td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id17859">
+
+
+	
+
+
+
+
+	
+<div id="dispositionInfo" class="subsection2 bgClr1">
+	 <div class="subSectionHeader"><h4><div>Case Disposition</div></h4></div>
+	<table id="id17842" summary="Table displaying the dispositions on this case ordered chronologically." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Disposition</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Date</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">UNDISPOSED</td><td></td>
+        </tr>
+</tbody>
+</table>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel">
+
+
+	
+
+
+
+
+	
+<div id="additionalFieldsInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Additional Fields</div></h4></div>
+	<div class="infoChildSection addlFields">
+		<div class="box addlFldsSec">
+			<dl>
+				
+					<dt>PRAYER AMOUNT:</dt><dd>SEE COMPLAINT</dd>
+				
+			</dl>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+	</div>
+</div>
+
+</div>
+
+<div class="ui-layout-south pane pane-south open" style="display: block; visibility: visible; position: absolute; margin: 0px; z-index: 2; top: auto; bottom: 0px; left: 0px; right: 0px; width: auto; height: 42px;" pane="south">
+	<div id="footer">
+<div id="footerLogo" title="eServices provided by CourtView Justice Solutions."></div>
+<div id="footerContent">
+	<p>CourtView Justice Solutions Inc. an equivant company, Copyright 2020</p>
+	<div class="versionId">1.23.03</div>
+	
+	
+</div>
+</div>
+</div>
+<div id="sessionLocaleLanguage" class="hidden">EN-US</div>
+<div id="serverName" class="hidden">xxx.xxx.xxx.xxx</div>
+<div id="sessionId" class="hidden">yyyyyyyyyyyyyy</div>
+<div id="generationTime" class="hidden">0000</div>
+<div id="generationSize" class="hidden">0000</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	var myLayout; // a var is required because this page utilizes: myLayout.allowOverflow() method
+	window.cjsBrowserRenderEndTime = new Date();
+	});
+</script>
+<script type="text/javascript" id="JavaScriptMarkupResponseLastScript">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+window.cjsBrowserRenderEndTime = new Date();
+/*--&gt;]]&gt;*/</script>
+
+
+<span title="Slide Open" id="EastPane-resizer" resizer="east" class="resizer resizer-east resizer-closed resizer-east-closed ui-draggable" style="cursor: pointer; position: absolute; padding: 0px; margin: 0px; font-size: 1px; text-align: left; overflow: hidden; z-index: 1; right: 0px; height: 802px; width: 6px; top: 82px; display: none; visibility: visible;"><div id="EastPane-toggler" title="Open This Pane" class="toggler toggler-east toggler-closed toggler-east-closed" style="position: absolute; display: block; padding: 0px; margin: 0px; overflow: hidden; text-align: center; font-size: 1px; cursor: pointer; z-index: 1; height: 35px; width: 6px; top: 384px;"></div></span><span title="Slide Open" id="WestPane-resizer" resizer="west" class="resizer resizer-west resizer-closed resizer-west-closed ui-draggable" style="cursor: pointer; position: absolute; padding: 0px; margin: 0px; font-size: 1px; text-align: left; overflow: hidden; z-index: 1; left: 0px; height: 804px; width: 6px; top: 82px;"><div id="WestPane-toggler" title="Open Navigations" class="toggler toggler-west toggler-closed toggler-west-closed" style="position: absolute; display: block; padding: 0px; margin: 0px; overflow: hidden; text-align: center; font-size: 1px; cursor: pointer; z-index: 1; height: 35px; width: 6px; top: 384px;"></div></span><div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-id1782f" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-id1782f">Please Wait...</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div style="" id="id1782f" class="ui-dialog-content ui-widget-content">
+	<b><span id="id1785a" style="display:none"></span></b>
+	<br />
+	<br />
+	<br />
+	<center><img src="resources/org.apache.wicket.ajax.AbstractDefaultAjaxBehavior/indicator.gif" /></center>
+</div></div><div id="cluetip-waitimage" style="position: absolute; display: none;"></div><div id="cluetip" style="display: none; position: absolute;"><div id="cluetip-outer" class="ui-cluetip-outer" style="position: relative; z-index: 97;"><h3 id="cluetip-title" class="ui-widget-header ui-cluetip-header"></h3><div id="cluetip-inner" class="ui-widget-content ui-cluetip-content"></div></div><div id="cluetip-extra"></div><div id="cluetip-arrows" class="cluetip-arrows"></div></div></body></html>

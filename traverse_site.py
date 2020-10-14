@@ -7,10 +7,19 @@ import time
 import datetime
 import sys
 import csv
+import os
+
+
+def is_int(a):
+	try:
+		return int(a)
+	except ValueError:
+		return False
 
 if len(sys.argv) != 4:
 	print('USAGE: python traverse_site.py [start_date] [end_date] [filename]')
 	sys.exit(0)
+
 
 start_string = sys.argv[1]
 end_string = sys.argv[2]
@@ -19,6 +28,8 @@ filename = sys.argv[3]
 
 START_DATE = datetime.datetime.strptime(start_string, '%m/%d/%Y')
 END_DATE = datetime.datetime.strptime(end_string, '%m/%d/%Y')
+
+os.mkdir(os.getcwd() + '/page_source_files/' + datetime.datetime.today().strftime('%Y%m%d'))
 
 """
 with open(filename, 'w') as f:
@@ -51,6 +62,7 @@ def start_up(tracker):
 		tracker.scroll_to_element(element_xpath='//*[@name="ptyCd"]/option[12]')
 		time.sleep(0.5)
 
+
 def fill_dates_and_press(tracker, date_string):
 	# Fill Start Date box
 	tracker.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:beginDate"]', text=date_string)
@@ -63,27 +75,65 @@ def fill_dates_and_press(tracker, date_string):
 	tracker.click_button_xpath(button_xpath='//*[@name="submitLink"]')
 	#tracker.wait_until_loaded('//*[@id="grid"]/tbody/tr//a')
 
+
+def scrape_page_results(tracker, current_page):
+	# Find case elements on the page
+	try:
+		rows = tracker.get_num_table_rows()
+	except:
+		time.sleep(2)
+		rows = tracker.get_num_table_rows()
+	
+	rows = min(40, rows - (40 * (current_page - 1)))
+	
+	# For each case element
+	for row_num in range(rows):
+		try:
+			row = tracker.get_table_row((row_num+1))
+			# Follow case link
+			row.click()
+		except:
+			time.sleep(2)
+			try:
+				row = tracker.get_table_row((row_num+1))
+				# Follow case link
+				row.click()
+			except IndexError:
+				print('error')
+				time.sleep(1)
+				break
+
+		time.sleep(1)
+
+		# Parse/store data
+		tracker.store_data(filename)
+
+		# Go back to previous page with other case elements
+		tracker.back_page()
+
+
 def main():	
 	date = START_DATE
 	tracker = MuniCourtTracker()
+	current_page_index = 1
 	
 	# captcha = RecaptchaV2()
 	# captcha.solve(tracker.driver, sitekey, apikey)
 
 	while date != END_DATE:
-		time.sleep(2)
+		time.sleep(1)
 		date_string = datetime.datetime.strftime(date, '%m/%d/%Y')
 		print(date_string)
 
-		# try:
-		start_up(tracker)
-		fill_dates_and_press(tracker, date_string)
-		# except:
-			# tracker.quit()
-			# tracker = MuniCourtTracker()
-			# time.sleep(2)
-			# start_up(tracker)
-			# fill_dates_and_press(tracker, date_string)
+		try:
+			start_up(tracker)
+			fill_dates_and_press(tracker, date_string)
+		except:
+			tracker.quit()
+			tracker = MuniCourtTracker()
+			time.sleep(2)
+			start_up(tracker)
+			fill_dates_and_press(tracker, date_string)
 		
 		errors = tracker.driver.find_elements_by_xpath('//*[@id="id3b"]/ul/li/span[@class="feedbackPanelERROR"]')
 		while len(errors) > 0:
@@ -91,39 +141,41 @@ def main():
 			tracker.click_button_xpath(button_xpath='//*[@id="id3a"]')
 			errors = tracker.driver.find_elements_by_xpath('//*[@id="id3b"]/ul/li/span[@class="feedbackPanelERROR"]')
 
-		# Find case elements on the page
+		# Split the result string, which will either be in the format "Displaying 100 of ___ total matches." if > 100 or "Displaying all ___ matches." if <= 100
+		# Find the last integer in the string, which should be the total number of results from the date
+
 		try:
-			rows = tracker.get_num_table_rows()
+			total_results = [int(x) for x in tracker.driver.find_element_by_id("srchResultNotice").text.split(" ") if is_int(x)][-1]
 		except:
-			time.sleep(2)
-			rows = tracker.get_num_table_rows()
-		print(rows)
-		
-		# For each case element
-		for row_num in range(rows):
-			try:
-				row = tracker.get_table_row((row_num+1))
-				# Follow case link
-				row.click()
-			except:
-				time.sleep(2)
-				try:
-					row = tracker.get_table_row((row_num+1))
-					# Follow case link
-					row.click()
-				except IndexError:
-					time.sleep(1)
-					break
+			total_results = 0
 
-			time.sleep(1)
+		# CourtView will display a max of three pages of results and a max of 100 items, so find how many pages we'd expect from the results.
+		# If there are more than 100 results for the selected date, we have a small problem that we can work on later
+		# There are 40 results to a page, so floor divide by 40 (and add one)
+		num_pages = min(3, ((total_results // 40) + 1))
+		print(num_pages)
 
-			# Parse/store data
-			tracker.store_data(filename)
-
-			# Go back to previous page with other case elements
+		if num_pages == 1:
+			scrape_page_results(tracker, current_page_index)
 			tracker.back_page()
+			date += datetime.timedelta(days=1)
+		else:
+			print(current_page_index)
+			tracker.click_button_xpath('//*[@title="Go to page {}"]'.format(current_page_index))
+			scrape_page_results(tracker, current_page_index)
 
-		tracker.back_page()
-		date += datetime.timedelta(days=1)
+			if current_page_index == num_pages:
+				current_page_index = 1
+				tracker.back_page()
+				date += datetime.timedelta(days=1)
+			else:
+				current_page_index += 1
+				tracker.back_page()
+				tracker.back_page()
+
+		# tracker.back_page()
+		# Return to search page and increment date
+		# tracker.driver.get("")
+		
 
 main()

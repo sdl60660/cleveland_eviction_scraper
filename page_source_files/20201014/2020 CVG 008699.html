@@ -1,0 +1,1365 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%; overflow: hidden;"><!-- $Id: EServiceBaseLayoutPage.html,v 1.13 2017/04/06 18:47:44 zliu Exp $ --><head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<title>CourtView Justice Solutions</title>
+	<script type="text/javascript">window.cjsBrowserRenderStartTime = new Date();</script>
+	<link rel="icon" type="image/png" href="images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="css/eaccess.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/initialize.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_fonts.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_header.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_application.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_globalNav.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_footer.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_forms.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_containers.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_tables.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_buttons.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/efile.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/epay.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_Calendar.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_configStyles.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_PortalDashboard.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_NotifyPage.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_printStyle.css?v=1.23.03" media="print" />
+	<link href="css/eServ_Phone.css?v=1.23.03" rel="stylesheet" type="text/css" media="only screen and (min-device-width:0px) and (max-device-width:380px)" />
+	<link href="css/eServ_Tablet.css?v=1.23.03" rel="stylesheet" type="text/css" media="only screen and (min-device-width:381px) and (max-device-width:900px)" />
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+  <!--[if lte IE 7]>
+	
+	<style type="text/css">
+	.ui-dropdown-content ul ul li { display: inline; width: 100%; }
+	.ui-dropdown-content ul ul li a { border-right: none; width: 100%; display: inline-block; }
+	</style>
+  <![endif]-->
+<script type="text/javascript" src="resources/org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference/jquery/jquery-1.5.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference/uilightness/jquery-ui-1.8.10.custom.css" />
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.layout.LayoutJQueryUICustomJavaScriptResourceReference/jquery.ui.custom.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.layout.LayoutJavaScriptResourceReference/jquery.layout.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.window.WindowJavaScriptResourceReference/jquery.window.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference/jquery.ui.mouse.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference/jquery.ui.dialog.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.button.ButtonJavascriptResourceReference/jquery.ui.button.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference/jquery.ui.draggable.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference/jquery.ui.resizable.min.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterJavaScriptResourceReference/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterParsersJavaScriptResourceReference/jquery.tablesorter.parsers.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterMetadataJavaScriptResourceReference/jquery.metadata.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.HoverIntentJavaScriptResourceReference/jquery.hoverIntent.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.ClueTipJavaScriptResourceReference/jquery.cluetip.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.BodyLayoutPlugin/layout/jquery.layout.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.window.WindowCSSResourceReference/jquery.window.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterCSSResourceReference/jquery.tablesorter.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.ClueTipCSSResourceReference/jquery.cluetip.css" />
+<script type="text/javascript" id="wiquery-gen-1602699567359">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+(function($) {
+$(document).ready(function() {
+window.bodyLayout=$('#body').layout({name: 'bodyLayout', defaults: {size: 'auto', minSize: 50, paneClass: 'pane', resizerClass: 'resizer', togglerClass: 'toggler', buttonClass: 'button', togglerLength_open: 35, togglerLength_closed: 35, fxName: 'slide', contentSelector: '.content', contentIgnoreSelector: 'span', hideTogglerOnSlide: true, togglerTip_open: 'Close This Pane', togglerTip_closed: 'Open This Pane', resizerTip: 'Resize This Pane', fxSpeed_open: 750, fxSpeed_close: 1500, fxSettings_open: { easing: 'easeInQuint' }, fxSettings_close: { easing: 'easeInQuint' }}, north: {size: 'auto', minSize: 82, closable: false, resizable: false, slidable: false, spacing_open: 0, togglerLength_closed: -1, fxName: 'none'}, south: {size: 'auto', maxSize: 44, closable: false, resizable: false, slidable: false, spacing_open: 0, togglerLength_closed: -1, fxName: 'none'}, east: {initHidden: true, paneSelector: '#EastPane', size: 'auto'}, west: {size: 'auto', minSize: 200, togglerTip_open: 'Close Navigations', togglerTip_closed: 'Open Navigations', resizerTip: 'Resize Navigations', closable: true, resizable: true, fxName: 'none', paneSelector: '#WestPane', initClosed: true, slidable: true, slideTrigger_open: 'click', slideTrigger_close: 'click', togglerAlign_open: 'center', togglerAlign_closed: 'center'}, center: {paneSelector: '#mainContent'}});
+$('#id1f003').dialog({autoOpen: false, position: 'center', open: function(event, ui) {
+$('#id1f003').parents('.ui-dialog:first').find('.ui-dialog-titlebar-close').hide();
+}, minimizable: false, maximizable: false, modal: true, resizable: false, title: 'Please Wait...'});
+$('#id1f011').tablesorter({debug: false, headers: { 0: { sorter: 'cjsDate'}, 1: { sorter: 'text'}, 2: { sorter: 'text'}, 3: { sorter: 'text'}, 4: { sorter: 'text'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id1f012').tablesorter({debug: false, headers: { 0: { sorter: 'cjsDate'}, 1: { sorter: false}, 2: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id1f013').tablesorter({debug: false, headers: { 0: { sorter: 'text'}, 1: { sorter: 'cjsCurrency'}, 2: { sorter: 'cjsCurrency'}, 3: { sorter: 'cjsCurrency'}, 4: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id1f014').cluetip({positionBy: 'auto', activation: 'hover', arrows: false, sticky: false, width: 550, showTitle: false, local: true, mouseOutClose: true, cluetipClass: 'jtip', waitImage: true});
+$('#id1f015').tablesorter({debug: false, headers: { 0: { sorter: 'digit'}, 1: { sorter: 'cjsDate'}, 2: { sorter: 'text'}, 3: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id1f016').tablesorter({debug: false, headers: { 0: { sorter: 'text'}, 1: { sorter: 'cjsDate'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+});
+})(jQuery);
+
+/*--&gt;]]&gt;*/</script>
+
+<script type="text/javascript" src="resources/org.apache.wicket.markup.html.WicketEventReference/wicket-event.js"></script>
+<script type="text/javascript" src="resources/org.apache.wicket.ajax.WicketAjaxReference/wicket-ajax.js"></script>
+<script type="text/javascript" id="closeDialogJS">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+$('#id1f003').dialog('close');
+/*--&gt;]]&gt;*/</script>
+
+<script type="text/javascript" src="resources/com.cjs.wicket.component.CancelEventPropagationResource/CancelEventPropagation.js"></script>
+<script type="text/javascript" src="resources/org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow/res/modal.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow/res/modal.css" />
+</head>
+<body id="body" style="overflow: hidden; position: relative; height: 100%; margin: 0px; padding: 0px; border: none;">
+<div class="ui-layout-north pane pane-north open" pane="north" style="visibility: visible; display: block; position: absolute; margin: 0px; z-index: 2; top: 0px; bottom: auto; left: 0px; right: 0px; width: auto; height: 81px;">
+	<div id="header">
+<div class="globalNavigation" id="id1f017">
+<ul id="navigationSectionLeft" class="MenuBarHorizontal">
+<!--
+	<li wicket:id="menu"></li>
+-->
+	<li class="navLoggedInUser"><a id="id1f018" href="#" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LEPV1vB4j-77KsytAwMlfCZ*YDJwNY8*5*rSYL8wNByQY7grh*e*Cn069CNV-klGUqLD2CqzSmGRou9Laz1m6kyvvHRYmiU6xQ7hVwcXUbRM',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f018') != null;}.bind(this));return !wcall;" title="Your Account"><span title="Manage Your Account"></span></a></li>
+	<li><a class="link" href="home.page">Home</a></li>
+	<li><a class="link" href="?x=1NgfY7ziHNubgt7Cd-U2LEPV1vB4j-77KsytAwMlfCZ*YDJwNY8*57kWbVlzAjR3JMD*Qnwn3A7MADsELs6*0saSXpUcDlFfLxqawIpFpts0NdmBa42ooQ">Search</a></li>
+ 	<li><a class="link" title="Search Results" href="?x=1NgfY7ziHNubgt7Cd-U2LEPV1vB4j-77KsytAwMlfCZ*YDJwNY8*524mTTpveTCgjNs6TDTmjI5O3as5q89FsChOp4*jXwqvXJ3eyLO26qPDSzXYXTICTQ">Results</a></li>
+	<li><a class="link" href="efile.page">eFile</a></li>
+	
+	
+	<li></li>
+	
+	
+	
+</ul>
+<ul id="navigationSectionRight" class="MenuBarHorizontal">
+	
+	
+	<li><a class="link" id="id1f019" href="login.page">Log on</a></li>
+	
+	<li class="link"></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="WestPane" class="ui-layout-west pane pane-west closed" pane="west" style="visibility: visible; display: none; position: absolute; margin: 0px; z-index: 2; left: 0px; right: auto; top: 82px; bottom: 44px; height: 802px; width: 199px; float: none;">
+	<div>
+<div class="dynamicNav" id="id1f01a">
+	<div class="menuSection">
+	<div class="sectionHeader">
+		<h3><span title="">ATTORNEY REGISTRATION</span></h3>
+		
+	</div>
+	<ul class="menuLinks">
+		<li><span>
+<a href="https://eservices.cmcoh.org/eservices/register.page?prt" title="" target="_blank">Attorney Registration</a>
+</span></li><li><span>
+<a href="https://eservices.cmcoh.org/eservices/register.page?efile=true" title="">Pro Se Litigants Registraition</a>
+</span></li>
+		<li></li>
+	</ul>
+	</div>
+	
+</div>
+
+
+
+
+</div>
+</div>
+<div id="EastPane" class="ui-layout-east pane pane-east" pane="east" style="visibility: visible; display: none; position: absolute; margin: 0px; z-index: 2; left: auto; right: 0px; top: 82px; bottom: 44px; height: 802px; width: 48px; float: none;">
+</div>
+<div id="mainContent" pane="center" class="pane pane-center open" style="visibility: visible; display: block; position: absolute; margin: 0px; z-index: 2; left: 6px; right: 0px; top: 82px; bottom: 44px; height: 792px; width: 1192px;">
+	
+<div id="caseDetail">
+	<div id="caseDetailHeader">
+
+
+	
+
+
+
+
+	
+		<div id="titleBar" class="sectionHeader">
+			<h2>
+				
+		
+			
+			2020 CVG 008699          HUNTER, GREGORY -VS-  PENNY, CADAJE      ADMINH
+		
+		
+		
+		
+		
+		
+		
+
+			</h2>
+		</div>
+		<div id="caseHeader" class="caseInfo formSec bgClr1">
+			<table>
+				<tbody><tr><th></th>   <!-- col1 -->
+				<th></th>   <!-- col2 -->
+				<th></th>   <!-- col3 -->
+				
+				</tr><tr><td>
+		
+			<dt>Case Type</dt>
+			<dd class="displayData">CVG  -  LANDLORD/TENANT</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td>
+		
+			<dt>Action:</dt>
+			<dd class="displayData">EVICTION - 1 DEFENDANT</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td></tr>
+					
+				<tr><td>
+		
+			<dt>Case Status:</dt>
+			<dd class="displayData">OPEN</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td>
+					<td></td></tr>
+					
+				<tr><td>
+		
+			<dt>File Date:</dt>
+			<dd class="displayData">09/25/2020</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td>
+					<td></td></tr>
+					
+				<tr><td></td>
+					<td>
+		
+			<dt>Next Event:</dt>
+			<dd class="displayData">
+<!-- $Id: CourtViewNextEventPanel.html,v 1.1 2011/04/12 18:55:38 stheisen Exp $ -->
+  <span>10/23/2020</span>
+</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td></tr>
+					
+				<tr><td></td>
+					<td></td>
+					<td></td></tr>
+			</tbody></table>
+
+			<div class="buttonBar">
+				<div id="id1f01b">
+	
+</div>
+				
+				
+				<div id="id1f01c" style="display:none"></div>
+			</div>
+		</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+	<div class="tabSection">
+		<div id="id1f01d">
+<div class="tab-row">
+<ul>
+	<li class="tab0 selected">
+		<a href="?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgi9coFCVHBzONIXhH9jcwpQgm5ZDA9TyXUwA8cGRIYJW" id="id1f01e" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgi9coFCVHBzOMKf6Iw7F2jqzpsYDrt9zhvlcyMSSB2Vq',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f01e') != null;}.bind(this));return !wcall;"><span>All Information</span></a>
+	</li><li class="tab1">
+		<a href="?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgiq1hhRLLmQ*THJVCUaifxFpsKPkYt2icAnph-V7aZ9l" id="id1f01f" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgiq1hhRLLmQ*eHLZ7TkUETlM2e9O4idWvbGjiwF*VDw8',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f01f') != null;}.bind(this));return !wcall;"><span>Party</span></a>
+	</li><li class="tab2">
+		<a href="?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgteQGiUuut34hw2ZsPgBITEIS3L5Wmv2gMC0ER9HnO6P" id="id1f020" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgteQGiUuut34by5qamLmVXRNzdLYRrpqL7MP9ONzpJfu',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f020') != null;}.bind(this));return !wcall;"><span>Event</span></a>
+	</li><li class="tab3">
+		<a href="?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgo8CzP3uRKJ0ac7m883nFulBrU2NhFjEECt-178zsytX" id="id1f021" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgo8CzP3uRKJ0YvSQIApo07uRwdhmyF7Yp9WyvYAGxvET',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f021') != null;}.bind(this));return !wcall;"><span>Docket</span></a>
+	</li><li class="tab4">
+		<a href="?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgrUw1WWeye2B4TY8mHEcc4jr7UwOABI2zc6OGB5Te2w4" id="id1f022" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgrUw1WWeye2B4*1HMLddHHeyr8jtShAKF9e4QNYmdxYl',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f022') != null;}.bind(this));return !wcall;"><span>Financial</span></a>
+	</li><li class="tab5">
+		<a href="?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgtnavzLKk5Z-UC2-l53s3Z-mrJhaPB0iXmnC2NoIr5ON" id="id1f023" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgtnavzLKk5Z-3LMCJBqchAmP7k-BahwHwDrH0i4vVfOk',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f023') != null;}.bind(this));return !wcall;"><span>Receipt</span></a>
+	</li><li class="tab6">
+		<a href="?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgqCVsjX5N*U23LnYe9mn95fXjyKD9KtBheMJUTyC3BYI" id="id1f024" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBgqCVsjX5N*U2ZmuRxXyVnrI00QUB-TOCZQAIRjBwbZyV',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f024') != null;}.bind(this));return !wcall;"><span>Disposition</span></a>
+	</li><li class="tab7 last">
+		<a href="?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBghmSv3AvFDKENUP2TLxOS6LX2DQzYTmazYAsfn8eXchp" id="id1f025" onclick="var wcall=wicketAjaxGet('?x=1NgfY7ziHNubgt7Cd-U2LGzkV084nHo2-Q*sN7vyI-SCYvQ8BwxXnUcGVrhKGSqKOY2BML048ycDQDsEu2MBghmSv3AvFDKE*YhMu8Zle5zH*ZYQ1GG-rmg3KxY4mA1y',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1f025') != null;}.bind(this));return !wcall;"><span>Additional Fields</span></a>
+	</li>
+</ul>
+</div>
+<div class="tab-panel">
+
+<div class="allInfoPanel" id="id1f026">
+
+
+	
+
+
+
+
+	
+<div id="id1f027" style="display:none">
+	
+</div>
+<div id="id1f028" style="display:none">
+	
+</div>
+<div id="ptyInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4>Party Information</h4></div>
+	<div id="ptyContainer" class="infoChildSection">
+		<div class="rowodd">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			HUNTER, GREGORY
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - PLAINTIFF
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">534 1/2 E 107</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44108     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			<dd class="displayData">
+<span>(216)407-7253</span>
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div><div class="roweven">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			PENNY, CADAJE
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - DEFENDANT
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">1035 E 70TH DWN REAR</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44103     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div><div class="rowodd">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			1035 E 70TH DWN REAR
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - PROPERTY ADDRESS
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">1035 E 70TH DWN REAR</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44103     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1f029">
+
+
+	
+
+
+
+
+	
+<div id="eventInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Events</div></h4></div>
+	<table id="id1f011" summary="Table displaying the events related to this case ordered chronologically." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Date/Time</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Location</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Type</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Result</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Event Judge</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">10/23/2020  10:00 AM</td><td>3RD FLOOR COURTROOM A</td><td>PRO SE FIRST CAUSE HEARING</td><td></td><td>HOUSING MAGISTRATE 3A</td>
+        </tr><tr class="rowodd">
+                <td scope="row">12/18/2020  01:30 PM</td><td>3RD FLOOR COURTROOM A</td><td>SECOND CAUSE HEARING</td><td></td><td>HOUSING MAGISTRATE 3A</td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1f02a">
+
+
+	
+
+
+
+
+	
+<div id="docketInfo" class="subsection2 bgClr1 financialSection">
+	<div class="subSectionHeader"><h4><div>Docket Information</div></h4></div>
+	<table id="id1f012" class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Date</span>
+			</th>
+		
+			<th scope="col">
+					<span>Docket Text</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Owed</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">09/25/2020</td><td class="formattedText">BACK FILED IMAGES</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">09/25/2020</td><td class="formattedText">EVICTION  COMPLAINT FILED BY
+GREGORY HUNTER (PLAINTIFF);  Receipt: 3220721  Date: 09/25/2020</td><td class="currency">$110.00</td>
+        </tr><tr class="roweven">
+                <td scope="row">09/25/2020</td><td class="formattedText">FIRST CAUSE HEARING
+Event: PRO SE FIRST CAUSE HEARING 
+Date: 10/23/2020    Time: 10:00 am 
+Judge: HOUSING MAGISTRATE 3A    Location: 3RD FLOOR COURTROOM A</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">09/25/2020</td><td class="formattedText">SECOND CAUSE HEARING
+Event: SECOND CAUSE HEARING 
+Date: 12/18/2020    Time: 1:30 pm 
+Judge: HOUSING MAGISTRATE 3A    Location: 3RD FLOOR COURTROOM A</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">09/25/2020</td><td class="formattedText">EVICTION HEARING INFORMATION PROVIDED TO PLAINTIFF/ATTORNEY
+
+CMS- (F) EVICTION HEARING NOTICE
+Sent on:  09/25/2020  15:24:48.47</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">09/25/2020</td><td class="formattedText">REQUEST FOR IN-PERSON HEARING FILED BY:
+GREGORY HUNTER (PLAINTIFF);</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">09/29/2020</td><td class="formattedText">CERTIFIED MAIL ISSUED TO     ON
+Issue Date:  09/29/2020
+Service:  COMP &amp; FORCIBLE ENTRY AND DETAINER
+Method:  (CV) ELECTRONIC CERTIFIED MAIL
+Cost Per:  $
+
+
+   PENNY, CADAJE
+   1035 E 70TH DWN REAR
+   CLEVELAND, OH   44103
+   Tracking No: 9171901552070912477885
+
+</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">09/29/2020</td><td class="formattedText">CIVIL SUMMONS ISSUED
+
+INTAKE- (N) CIVIL SUMMONS  FORCIBLE ENT &amp; DETAINER
+Sent on:  09/29/2020  15:11:30.45</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">09/29/2020</td><td class="formattedText">REGULAR MAIL ISSUED
+Issue Date:  09/29/2020
+Service:  COMP &amp; FORCIBLE ENTRY AND DETAINER
+Method:  (CV) REGULAR MAIL
+Cost Per:  $
+
+
+   PENNY, CADAJE
+   1035 E 70TH DWN REAR
+   CLEVELAND, OH   44103
+   Tracking No: R000173722
+
+</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">09/29/2020</td><td class="formattedText">CIVIL SUMMONS ISSUED
+INTAKE- (N) CIVIL SUMMONS  FORCIBLE ENT &amp; DETAINER
+Sent on:  09/29/2020  15:14:22.10</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">10/02/2020</td><td class="formattedText">DELIVERED
+USPS DELIVERED LEFT WITH INDIVIDUAL - Service Date: 10/02/2020
+Tracking Number: 91 7190 1552 0709 1247 7885
+CADAJE PENNY (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">10/02/2020</td><td class="formattedText">SIGNATURE
+Signature Received from USPS
+CADAJE PENNY Signature Document Attached
+Tracking Number: 7190 1552 0709 1247 7885
+CADAJE PENNY (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">10/06/2020</td><td class="formattedText">MAGISTRATE'S ORDER; THIS MATTER IS BEFORE THE MAGISTRATE ON PLAINTIFF'S REQUEST FOR AN IN-PERSON VIRTUAL HEARING DUE TO LACK OF A VIRTUAL HEARING COMPATIBLE DEVICE.  THE VIRTUAL HEARING REMAINS SET FOR OCTOBER 23, 2020 AT 10:00 AM.  PLAINTIFF SHALL APPEAR IN COURT AT THE JUSTICE CENTER, 1200 ONTARIO STREET, CLEVELAND, OHIO, COURTROOM 3A, AT THE DATE AND TIME INDICATED ABOVE.  THE PLAINTIFF SHALL PARTICIPATE IN THE VIRTUAL HEARING USING THE COURT'S VIRTUAL HEARING EQUIPMENT.</td><td class="currency"></td>
+        </tr>
+</tbody>
+</table>
+	  
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1f02b">
+
+
+	
+
+
+
+
+	
+<div id="financialInfo" class="subsection2 bgClr1 financialSection">
+	<div class="subSectionHeader"><h4><div>Financial Summary</div></h4></div>
+	<table id="id1f013" summary="Table displaying the dockets for this case ordered chronologically by date." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Cost Type</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Owed</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Paid</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Adjusted</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Outstanding</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+	<tr class="footers">
+		
+			<th><span></span></th>
+		
+			<th class="currency">$110.00</th>
+		
+			<th class="currency">$110.00</th>
+		
+			<th class="currency">$0.00</th>
+		
+			<th class="currency">$0.00</th>
+		
+	</tr>
+
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td>COSTS</td><td class="currency">$110.00</td><td class="currency">$110.00</td><td class="currency">
+	
+	
+	$0.00
+	<div id="id1f010" style="display:none"></div>
+</td><td class="currency">$0.00</td>
+        </tr>
+</tbody>
+</table>
+	
+	
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1f02c">
+
+
+	
+
+
+
+
+	
+<div id="receiptInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Receipts</div></h4></div>
+	<table id="id1f015" summary="Table displaying the Receipts on this case." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Receipt Number</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Receipt Date</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Received From</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Payment Amount</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+	<tr class="footers">
+		
+			<th><span></span></th>
+		
+			<th><span></span></th>
+		
+			<th><span></span></th>
+		
+			<th class="currency">$110.00</th>
+		
+	</tr>
+
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td>3220721</td><td scope="row">09/25/2020</td><td>HUNTER, GREGORY                         </td><td class="currency">$110.00</td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1f02d">
+
+
+	
+
+
+
+
+	
+<div id="dispositionInfo" class="subsection2 bgClr1">
+	 <div class="subSectionHeader"><h4><div>Case Disposition</div></h4></div>
+	<table id="id1f016" summary="Table displaying the dispositions on this case ordered chronologically." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Disposition</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Date</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">UNDISPOSED</td><td></td>
+        </tr>
+</tbody>
+</table>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel">
+
+
+	
+
+
+
+
+	
+<div id="additionalFieldsInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Additional Fields</div></h4></div>
+	<div class="infoChildSection addlFields">
+		<div class="box addlFldsSec">
+			<dl>
+				
+					<dt>PRAYER AMOUNT:</dt><dd>SEE COMPLAINT</dd>
+				
+			</dl>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+	</div>
+</div>
+
+</div>
+
+<div class="ui-layout-south pane pane-south open" style="display: block; visibility: visible; position: absolute; margin: 0px; z-index: 2; top: auto; bottom: 0px; left: 0px; right: 0px; width: auto; height: 42px;" pane="south">
+	<div id="footer">
+<div id="footerLogo" title="eServices provided by CourtView Justice Solutions."></div>
+<div id="footerContent">
+	<p>CourtView Justice Solutions Inc. an equivant company, Copyright 2020</p>
+	<div class="versionId">1.23.03</div>
+	
+	
+</div>
+</div>
+</div>
+<div id="sessionLocaleLanguage" class="hidden">EN-US</div>
+<div id="serverName" class="hidden">xxx.xxx.xxx.xxx</div>
+<div id="sessionId" class="hidden">yyyyyyyyyyyyyy</div>
+<div id="generationTime" class="hidden">0000</div>
+<div id="generationSize" class="hidden">0000</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	var myLayout; // a var is required because this page utilizes: myLayout.allowOverflow() method
+	window.cjsBrowserRenderEndTime = new Date();
+	});
+</script>
+<script type="text/javascript" id="JavaScriptMarkupResponseLastScript">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+window.cjsBrowserRenderEndTime = new Date();
+/*--&gt;]]&gt;*/</script>
+
+
+<span title="Slide Open" id="EastPane-resizer" resizer="east" class="resizer resizer-east resizer-closed resizer-east-closed ui-draggable" style="cursor: pointer; position: absolute; padding: 0px; margin: 0px; font-size: 1px; text-align: left; overflow: hidden; z-index: 1; right: 0px; height: 802px; width: 6px; top: 82px; display: none; visibility: visible;"><div id="EastPane-toggler" title="Open This Pane" class="toggler toggler-east toggler-closed toggler-east-closed" style="position: absolute; display: block; padding: 0px; margin: 0px; overflow: hidden; text-align: center; font-size: 1px; cursor: pointer; z-index: 1; height: 35px; width: 6px; top: 384px;"></div></span><span title="Slide Open" id="WestPane-resizer" resizer="west" class="resizer resizer-west resizer-closed resizer-west-closed ui-draggable" style="cursor: pointer; position: absolute; padding: 0px; margin: 0px; font-size: 1px; text-align: left; overflow: hidden; z-index: 1; left: 0px; height: 804px; width: 6px; top: 82px;"><div id="WestPane-toggler" title="Open Navigations" class="toggler toggler-west toggler-closed toggler-west-closed" style="position: absolute; display: block; padding: 0px; margin: 0px; overflow: hidden; text-align: center; font-size: 1px; cursor: pointer; z-index: 1; height: 35px; width: 6px; top: 384px;"></div></span><div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-id1f003" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-id1f003">Please Wait...</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div style="" id="id1f003" class="ui-dialog-content ui-widget-content">
+	<b><span id="id1f02e" style="display:none"></span></b>
+	<br />
+	<br />
+	<br />
+	<center><img src="resources/org.apache.wicket.ajax.AbstractDefaultAjaxBehavior/indicator.gif" /></center>
+</div></div><div id="cluetip-waitimage" style="position: absolute; display: none;"></div><div id="cluetip" style="display: none; position: absolute;"><div id="cluetip-outer" class="ui-cluetip-outer" style="position: relative; z-index: 97;"><h3 id="cluetip-title" class="ui-widget-header ui-cluetip-header"></h3><div id="cluetip-inner" class="ui-widget-content ui-cluetip-content"></div></div><div id="cluetip-extra"></div><div id="cluetip-arrows" class="cluetip-arrows"></div></div></body></html>

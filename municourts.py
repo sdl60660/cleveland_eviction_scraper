@@ -3,8 +3,10 @@
 from bs4 import BeautifulSoup
 import requests
 
-import csv, json
+import csv
+import json
 import time
+import datetime
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -19,7 +21,7 @@ START_PAGE = 'https://clevelandmunicipalcourt.org/public-access'
 class MuniCourtTracker():
 
     def __init__(self):
-        cookies = [{'domain': 'eservices.cmcoh.org', 'httpOnly': True, 'name': 'JSESSIONID', 'path': '/eservices', 'secure': True, 'value': '6F5E90E3959A8E7C0EF941A7FE7808F8'}]
+        cookies = [{'domain': 'eservices.cmcoh.org', 'httpOnly': True, 'name': 'JSESSIONID', 'path': '/eservices', 'secure': True, 'value': '31AE7432FE62EA5C2B26AE4C320E1EF1'}]
         
         chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument('--no-sandbox')
@@ -29,13 +31,13 @@ class MuniCourtTracker():
         self.driver.get(START_PAGE)
         for cookie in cookies:
             self.driver.add_cookie(cookie)
-        self.driver.implicitly_wait(2)
+        self.driver.implicitly_wait(3)
 
         # Get to search page
         for button in ["   I Accept   ", "Click Here", "Case Type Search"]:
             try:
                 self.click_button_name(button_name=button)
-                time.sleep(4)
+                time.sleep(2)
             except:
                 time.sleep(10)
                 self.click_button_name(button_name=button)
@@ -175,9 +177,12 @@ class MuniCourtTracker():
         csv_dict['Disposition Status'] = disposition_table.find_all('td')[0].text
         csv_dict['Disposition Date'] = disposition_table.find_all('td')[-1].text
 
+        date_string = datetime.datetime.today().strftime('%Y%m%d')
+        with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
+            f.write(self.driver.page_source)
+
 
         # NEW FIELDS HERE
-
         MuniCourtTracker.write_to_csv(filename, csv_dict)
 
     @staticmethod
@@ -189,11 +194,10 @@ class MuniCourtTracker():
                       'Costs', 'Disposition Status', 'Disposition Date']
                       # NEW FIELDS HERE
             out_csv = csv.DictWriter(f, fieldnames=fields)
-            out_csv.writeheader()
             out_csv.writerow(dictionary)
 
     def back_page(self):
-        self.driver.execute_script("window.history.go(-1)")
+        self.driver.back()
 
     def quit(self):
         self.driver.quit()

@@ -1,0 +1,1431 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%; overflow: hidden;"><!-- $Id: EServiceBaseLayoutPage.html,v 1.13 2017/04/06 18:47:44 zliu Exp $ --><head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<title>CourtView Justice Solutions</title>
+	<script type="text/javascript">window.cjsBrowserRenderStartTime = new Date();</script>
+	<link rel="icon" type="image/png" href="images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="css/eaccess.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/initialize.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_fonts.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_header.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_application.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_globalNav.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_footer.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_forms.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_containers.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_tables.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_buttons.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/efile.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/epay.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_Calendar.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_configStyles.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_PortalDashboard.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_NotifyPage.css?v=1.23.03" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/eServ_printStyle.css?v=1.23.03" media="print" />
+	<link href="css/eServ_Phone.css?v=1.23.03" rel="stylesheet" type="text/css" media="only screen and (min-device-width:0px) and (max-device-width:380px)" />
+	<link href="css/eServ_Tablet.css?v=1.23.03" rel="stylesheet" type="text/css" media="only screen and (min-device-width:381px) and (max-device-width:900px)" />
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+  <!--[if lte IE 7]>
+	
+	<style type="text/css">
+	.ui-dropdown-content ul ul li { display: inline; width: 100%; }
+	.ui-dropdown-content ul ul li a { border-right: none; width: 100%; display: inline-block; }
+	</style>
+  <![endif]-->
+<script type="text/javascript" src="resources/org.odlabs.wiquery.core.commons.CoreJavaScriptResourceReference/jquery/jquery-1.5.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/org.odlabs.wiquery.ui.themes.WiQueryCoreThemeResourceReference/uilightness/jquery-ui-1.8.10.custom.css" />
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.core.CoreUIJavaScriptResourceReference/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.layout.LayoutJQueryUICustomJavaScriptResourceReference/jquery.ui.custom.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.layout.LayoutJavaScriptResourceReference/jquery.layout.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.window.WindowJavaScriptResourceReference/jquery.window.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.widget.WidgetJavascriptResourceReference/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.mouse.MouseJavascriptResourceReference/jquery.ui.mouse.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.position.PositionJavascriptResourceReference/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.dialog.DialogJavaScriptResourceReference/jquery.ui.dialog.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.button.ButtonJavascriptResourceReference/jquery.ui.button.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.draggable.DraggableJavaScriptResourceReference/jquery.ui.draggable.min.js"></script>
+<script type="text/javascript" src="resources/org.odlabs.wiquery.ui.resizable.ResizableJavaScriptResourceReference/jquery.ui.resizable.min.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterJavaScriptResourceReference/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterParsersJavaScriptResourceReference/jquery.tablesorter.parsers.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterMetadataJavaScriptResourceReference/jquery.metadata.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.HoverIntentJavaScriptResourceReference/jquery.hoverIntent.js"></script>
+<script type="text/javascript" src="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.ClueTipJavaScriptResourceReference/jquery.cluetip.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.BodyLayoutPlugin/layout/jquery.layout.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.window.WindowCSSResourceReference/jquery.window.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.tablesorter.TablesorterCSSResourceReference/jquery.tablesorter.css" />
+<link rel="stylesheet" type="text/css" href="resources/com.cjs.wicket.core.wiquery.plugin.cluetip.ClueTipCSSResourceReference/jquery.cluetip.css" />
+<script type="text/javascript" id="wiquery-gen-1602697540959">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+(function($) {
+$(document).ready(function() {
+window.bodyLayout=$('#body').layout({name: 'bodyLayout', defaults: {size: 'auto', minSize: 50, paneClass: 'pane', resizerClass: 'resizer', togglerClass: 'toggler', buttonClass: 'button', togglerLength_open: 35, togglerLength_closed: 35, fxName: 'slide', contentSelector: '.content', contentIgnoreSelector: 'span', hideTogglerOnSlide: true, togglerTip_open: 'Close This Pane', togglerTip_closed: 'Open This Pane', resizerTip: 'Resize This Pane', fxSpeed_open: 750, fxSpeed_close: 1500, fxSettings_open: { easing: 'easeInQuint' }, fxSettings_close: { easing: 'easeInQuint' }}, north: {size: 'auto', minSize: 82, closable: false, resizable: false, slidable: false, spacing_open: 0, togglerLength_closed: -1, fxName: 'none'}, south: {size: 'auto', maxSize: 44, closable: false, resizable: false, slidable: false, spacing_open: 0, togglerLength_closed: -1, fxName: 'none'}, east: {initHidden: true, paneSelector: '#EastPane', size: 'auto'}, west: {size: 'auto', minSize: 200, togglerTip_open: 'Close Navigations', togglerTip_closed: 'Open Navigations', resizerTip: 'Resize Navigations', closable: true, resizable: true, fxName: 'none', paneSelector: '#WestPane', initClosed: true, slidable: true, slideTrigger_open: 'click', slideTrigger_close: 'click', togglerAlign_open: 'center', togglerAlign_closed: 'center'}, center: {paneSelector: '#mainContent'}});
+$('#id16123').dialog({autoOpen: false, position: 'center', open: function(event, ui) {
+$('#id16123').parents('.ui-dialog:first').find('.ui-dialog-titlebar-close').hide();
+}, minimizable: false, maximizable: false, modal: true, resizable: false, title: 'Please Wait...'});
+$('#id16131').tablesorter({debug: false, headers: { 0: { sorter: 'cjsDate'}, 1: { sorter: 'text'}, 2: { sorter: 'text'}, 3: { sorter: 'text'}, 4: { sorter: 'text'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id16132').tablesorter({debug: false, headers: { 0: { sorter: 'cjsDate'}, 1: { sorter: false}, 2: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id16133').tablesorter({debug: false, headers: { 0: { sorter: 'text'}, 1: { sorter: 'cjsCurrency'}, 2: { sorter: 'cjsCurrency'}, 3: { sorter: 'cjsCurrency'}, 4: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id16134').cluetip({positionBy: 'auto', activation: 'hover', arrows: false, sticky: false, width: 550, showTitle: false, local: true, mouseOutClose: true, cluetipClass: 'jtip', waitImage: true});
+$('#id16135').tablesorter({debug: false, headers: { 0: { sorter: 'digit'}, 1: { sorter: 'cjsDate'}, 2: { sorter: 'text'}, 3: { sorter: 'cjsCurrency'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+$('#id16136').tablesorter({debug: false, headers: { 0: { sorter: 'text'}, 1: { sorter: 'cjsDate'} } , dateFormat: 'mm/dd/yyyy', widgets: ['zebraNested'], widgetZebra: {css: ['roweven','rowodd']}});
+});
+})(jQuery);
+
+/*--&gt;]]&gt;*/</script>
+
+<script type="text/javascript" src="resources/org.apache.wicket.markup.html.WicketEventReference/wicket-event.js"></script>
+<script type="text/javascript" src="resources/org.apache.wicket.ajax.WicketAjaxReference/wicket-ajax.js"></script>
+<script type="text/javascript" id="closeDialogJS">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+$('#id16123').dialog('close');
+/*--&gt;]]&gt;*/</script>
+
+<script type="text/javascript" src="resources/com.cjs.wicket.component.CancelEventPropagationResource/CancelEventPropagation.js"></script>
+<script type="text/javascript" src="resources/org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow/res/modal.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow/res/modal.css" />
+</head>
+<body id="body" style="overflow: hidden; position: relative; height: 100%; margin: 0px; padding: 0px; border: none;">
+<div class="ui-layout-north pane pane-north open" pane="north" style="visibility: visible; display: block; position: absolute; margin: 0px; z-index: 2; top: 0px; bottom: auto; left: 0px; right: 0px; width: auto; height: 81px;">
+	<div id="header">
+<div class="globalNavigation" id="id16137">
+<ul id="navigationSectionLeft" class="MenuBarHorizontal">
+<!--
+	<li wicket:id="menu"></li>
+-->
+	<li class="navLoggedInUser"><a id="id16138" href="#" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoM8p09-UnRt2MJBlIkWzDkY4XauWUrDsnh3HHx7I2VBo*a3AUFPcC1S1Iv7zG-NvOdz6SVy1SqSEYU5it0ezB2g4xqnTjWCOnqdflx0dirC*',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id16138') != null;}.bind(this));return !wcall;" title="Your Account"><span title="Manage Your Account"></span></a></li>
+	<li><a class="link" href="home.page">Home</a></li>
+	<li><a class="link" href="?x=5d4GtnqwWB54bVA6RzzuoM8p09-UnRt2MJBlIkWzDkY4XauWUrDsnlO5RoPOBFD*521piAoFM0XNJ1MirNA8rgaCf4-jvEM1dcO35FNYTT5XQPsuSoblKQ">Search</a></li>
+ 	<li><a class="link" title="Search Results" href="?x=5d4GtnqwWB54bVA6RzzuoM8p09-UnRt2MJBlIkWzDkY4XauWUrDsnvEytLktujftmNBvYyHlwMTLJkFmHrUiFuRAJLGY4e9*Ce1NYYUWk4AhvsVinx4d4g">Results</a></li>
+	<li><a class="link" href="efile.page">eFile</a></li>
+	
+	
+	<li></li>
+	
+	
+	
+</ul>
+<ul id="navigationSectionRight" class="MenuBarHorizontal">
+	
+	
+	<li><a class="link" id="id16139" href="login.page">Log on</a></li>
+	
+	<li class="link"></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="WestPane" class="ui-layout-west pane pane-west closed" pane="west" style="visibility: visible; display: none; position: absolute; margin: 0px; z-index: 2; left: 0px; right: auto; top: 82px; bottom: 44px; height: 802px; width: 199px; float: none;">
+	<div>
+<div class="dynamicNav" id="id1613a">
+	<div class="menuSection">
+	<div class="sectionHeader">
+		<h3><span title="">ATTORNEY REGISTRATION</span></h3>
+		
+	</div>
+	<ul class="menuLinks">
+		<li><span>
+<a href="https://eservices.cmcoh.org/eservices/register.page?prt" title="" target="_blank">Attorney Registration</a>
+</span></li><li><span>
+<a href="https://eservices.cmcoh.org/eservices/register.page?efile=true" title="">Pro Se Litigants Registraition</a>
+</span></li>
+		<li></li>
+	</ul>
+	</div>
+	
+</div>
+
+
+
+
+</div>
+</div>
+<div id="EastPane" class="ui-layout-east pane pane-east" pane="east" style="visibility: visible; display: none; position: absolute; margin: 0px; z-index: 2; left: auto; right: 0px; top: 82px; bottom: 44px; height: 802px; width: 48px; float: none;">
+</div>
+<div id="mainContent" pane="center" class="pane pane-center open" style="visibility: visible; display: block; position: absolute; margin: 0px; z-index: 2; left: 6px; right: 0px; top: 82px; bottom: 44px; height: 792px; width: 1192px;">
+	
+<div id="caseDetail">
+	<div id="caseDetailHeader">
+
+
+	
+
+
+
+
+	
+		<div id="titleBar" class="sectionHeader">
+			<h2>
+				
+		
+			
+			2020 CVG 006868          TASO CL108X UNIT LLC -VS-  BROWN, LASHONA      ADMINH
+		
+		
+		
+		
+		
+		
+		
+
+			</h2>
+		</div>
+		<div id="caseHeader" class="caseInfo formSec bgClr1">
+			<table>
+				<tbody><tr><th></th>   <!-- col1 -->
+				<th></th>   <!-- col2 -->
+				<th></th>   <!-- col3 -->
+				
+				</tr><tr><td>
+		
+			<dt>Case Type</dt>
+			<dd class="displayData">CVG  -  LANDLORD/TENANT</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td>
+		
+			<dt>Action:</dt>
+			<dd class="displayData">EVICTION - 1 DEFENDANT</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td></tr>
+					
+				<tr><td>
+		
+			<dt>Case Status:</dt>
+			<dd class="displayData">OPEN</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td>
+					<td></td></tr>
+					
+				<tr><td>
+		
+			<dt>File Date:</dt>
+			<dd class="displayData">08/05/2020</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td>
+					<td></td></tr>
+					
+				<tr><td></td>
+					<td>
+		
+			<dt>Next Event:</dt>
+			<dd class="displayData">
+<!-- $Id: CourtViewNextEventPanel.html,v 1.1 2011/04/12 18:55:38 stheisen Exp $ -->
+  <span>11/04/2020</span>
+</dd>
+		
+		
+		
+		
+		
+		
+		
+</td>
+					<td></td></tr>
+					
+				<tr><td></td>
+					<td></td>
+					<td></td></tr>
+			</tbody></table>
+
+			<div class="buttonBar">
+				<div id="id1613b">
+	
+</div>
+				
+				
+				<div id="id1613c" style="display:none"></div>
+			</div>
+		</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+	<div class="tabSection">
+		<div id="id1613d">
+<div class="tab-row">
+<ul>
+	<li class="tab0 selected">
+		<a href="?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xgOguMsaE1l4O9yzhZ6pq5kUHRTYconlBD87FdwqcW5n" id="id1613e" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xgOguMsaE1l4xA7y-5RoV0u-21sW1L8yeyskRFJbC0yj',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1613e') != null;}.bind(this));return !wcall;"><span>All Information</span></a>
+	</li><li class="tab1">
+		<a href="?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xjJMl2qaU5cMjrSs4VId8RjTKTa7udQDmh2QfQj5OnwD" id="id1613f" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xjJMl2qaU5cMNJ0*8PQKdMxdm0Mu0EE4LyCOKK9vkY5E',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id1613f') != null;}.bind(this));return !wcall;"><span>Party</span></a>
+	</li><li class="tab2">
+		<a href="?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xrwcyeG6zQrRgktzWhfca5z5zEQZypVQQjtMtx8O3csp" id="id16140" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xrwcyeG6zQrR0YpdNC4LEoSGzC8SWS6smkJfEla0IGdA',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id16140') != null;}.bind(this));return !wcall;"><span>Event</span></a>
+	</li><li class="tab3">
+		<a href="?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xm6H8TZ9ZXTVE1vdLXWA76ujGmIYoCqDsbHlQIcFpLcz" id="id16141" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xm6H8TZ9ZXTVMXsJ*mwfT-TnoL*svHwaWDPNXmP*HqV0',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id16141') != null;}.bind(this));return !wcall;"><span>Docket</span></a>
+	</li><li class="tab4">
+		<a href="?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xqTrQvxJKRCCUT5UU-kE2F5P5O*e2W32AGS*PUQoEWez" id="id16142" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xqTrQvxJKRCCh4*7gq6GYNiJfXWX5rgKiNCBUsqDAY5l',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id16142') != null;}.bind(this));return !wcall;"><span>Financial</span></a>
+	</li><li class="tab5">
+		<a href="?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xkoBtojZalbPG8jGwmCa8ffSA4TD2RQuzKLVverZjhP3" id="id16143" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xkoBtojZalbPIHZ0Y2IZbIgN-FaTlkx6txb7CcmLC4P-',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id16143') != null;}.bind(this));return !wcall;"><span>Receipt</span></a>
+	</li><li class="tab6">
+		<a href="?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xvymLDotRFyLmYhAOmvBCTlXiVbmfG1FOHgROfvOe6EU" id="id16144" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xvymLDotRFyLNRuAU0Nc4gEhnVV4Y9M3FEaUdXLVw75g',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id16144') != null;}.bind(this));return !wcall;"><span>Disposition</span></a>
+	</li><li class="tab7 last">
+		<a href="?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xkYZoae6umJAvNZWLKgdqLI28JrRYjBnZHc8kwVZZw0Y" id="id16145" onclick="var wcall=wicketAjaxGet('?x=5d4GtnqwWB54bVA6RzzuoAq8FRazDRCpLzUGyxTXJu3FGY1lvIhxMzBmrx9nUqeNTBCeA8a*lLEneqYroh30xkYZoae6umJA9O4DRFzzDh4t1Ld*ce5Ty5bl70D*ZZDY',function() { }.bind(this),function() { }.bind(this), function() {return Wicket.$('id16145') != null;}.bind(this));return !wcall;"><span>Additional Fields</span></a>
+	</li>
+</ul>
+</div>
+<div class="tab-panel">
+
+<div class="allInfoPanel" id="id16146">
+
+
+	
+
+
+
+
+	
+<div id="id16147" style="display:none">
+	
+</div>
+<div id="id16148" style="display:none">
+	
+</div>
+<div id="ptyInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4>Party Information</h4></div>
+	<div id="ptyContainer" class="infoChildSection">
+		<div class="rowodd">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			TASO CL108X UNIT LLC
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - PLAINTIFF
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">4568 MAYFIELD RD #204</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44121     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+
+
+
+
+	
+<div class="rowodd">
+	<dl>
+		
+		
+			<dt>Attorney </dt>
+			<dd class="displayData">LOWDER, ESQ, CRISTINA</dd>
+		
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
+			<dt>Address </dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">JACOBS &amp; LOWDER</div>
+	<div class="addrLn2">15614 DETROIT AVENUE SUITE 7</div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44104     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+		
+		
+			<dt>Phone </dt>
+			<dd class="displayData">(216)227-0900</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	</dl>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div><div class="roweven">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			BROWN, LASHONA
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - DEFENDANT
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">540 EAST 108TH STREET</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44108     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div><div class="rowodd">
+			
+	<div class="subSectionHeader2"><h5>
+		
+			
+			540 EAST 108TH STREET
+		
+		
+		
+		
+		
+		
+		
+<span class="ptyType">
+		
+			
+			 - PROPERTY ADDRESS
+		
+		
+		
+		
+		
+		
+		
+</span></h5></div>
+	<div class="box ptyPersInfo">
+		
+			
+			
+
+
+
+
+	
+	<dl>
+	
+	
+	
+		
+			<dt>Disposition</dt>
+			<dd class="displayData"> </dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+	</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyContact">
+		
+			
+			
+
+
+
+
+	
+<dl>
+	
+		
+			<dt>Address</dt>
+			<dd class="displayData">
+
+	<div class="addrLn1">540 EAST 108TH STREET</div>
+	<div class="addrLn2"></div>
+	<div class="addrLn3"></div>
+	<span>CLEVELAND</span>, <span>OH        </span> <span>44108     </span>
+
+
+
+
+</dd>
+		
+		
+		
+		
+		
+		
+		
+
+	
+		
+			<dt>Phone</dt>
+			
+		
+		
+		
+		
+		
+		
+		
+
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAffl">
+		
+			<h5>Alias</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>
+	<div class="box ptyAtty">
+		
+			<h5>Party Attorney</h5>
+			
+		
+		
+		
+		
+		
+		
+		
+</div>	
+	<div class="moreInfo ptyMore"></div>
+	<div class="moreInfo"></div>
+	<div class="moreInfo"></div>
+
+			<div style="display:none;">This is tooltip Text.  It should display nicely.</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id16149">
+
+
+	
+
+
+
+
+	
+<div id="eventInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Events</div></h4></div>
+	<table id="id16131" summary="Table displaying the events related to this case ordered chronologically." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Date/Time</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Location</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Type</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Result</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Event Judge</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">09/04/2020  09:00 AM</td><td>3RD FLOOR COURTROOM A</td><td>ATTY FIRST CAUSE HRG AM</td><td>DISMISS FOR WANT OF PROS</td><td>HOUSING MAGISTRATE 3A</td>
+        </tr><tr class="rowodd">
+                <td scope="row">11/04/2020  01:30 PM</td><td>3RD FLOOR COURTROOM A</td><td>SECOND CAUSE HEARING</td><td></td><td>HOUSING MAGISTRATE 3A</td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1614a">
+
+
+	
+
+
+
+
+	
+<div id="docketInfo" class="subsection2 bgClr1 financialSection">
+	<div class="subSectionHeader"><h4><div>Docket Information</div></h4></div>
+	<table id="id16132" class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Date</span>
+			</th>
+		
+			<th scope="col">
+					<span>Docket Text</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Owed</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">08/05/2020</td><td class="formattedText">BACK FILED IMAGES</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/05/2020</td><td class="formattedText">EVICTION  COMPLAINT FILED BY
+TASO CL108X UNIT LLC (PLAINTIFF); ; CRISTINA LOWDER ESQ (Attorney) on behalf of TASO CL108X UNIT LLC (PLAINTIFF)  Receipt: 3212670  Date: 08/05/2020</td><td class="currency">$110.00</td>
+        </tr><tr class="roweven">
+                <td scope="row">08/05/2020</td><td class="formattedText">FIRST CAUSE HEARING
+Event: ATTY FIRST CAUSE HRG AM - COVID 19 
+Date: 09/04/2020    Time: 9:00 am 
+Judge: HOUSING MAGISTRATE 3A    Location: 3RD FLOOR COURTROOM A
+
+Result: DISMISS FOR WANT OF PROS</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/05/2020</td><td class="formattedText">SECOND CAUSE HEARING
+Event: SECOND CAUSE HEARING 
+Date: 11/04/2020    Time: 1:30 pm 
+Judge: HOUSING MAGISTRATE 3A    Location: 3RD FLOOR COURTROOM A</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/05/2020</td><td class="formattedText">EVICTION HEARING INFORMATION PROVIDED TO PLAINTIFF/ATTORNEY
+
+CMS- (F) EVICTION HEARING NOTICE
+Sent on:  08/05/2020  10:39:12.69</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/10/2020</td><td class="formattedText">CERTIFIED MAIL ISSUED TO     ON
+Issue Date:  08/10/2020
+Service:  COMP &amp; FORCIBLE ENTRY AND DETAINER
+Method:  (CV) ELECTRONIC CERTIFIED MAIL
+Cost Per:  $
+
+
+   BROWN, LASHONA
+   540 EAST 108TH STREET
+   CLEVELAND, OH   44108
+   Tracking No: 9171901552070912450031
+
+</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/10/2020</td><td class="formattedText">CIVIL SUMMONS ISSUED
+
+INTAKE- (N) CIVIL SUMMONS  FORCIBLE ENT &amp; DETAINER
+Sent on:  08/10/2020  11:30:33.62
+LASHONA BROWN (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/10/2020</td><td class="formattedText">REGULAR MAIL ISSUED
+Issue Date:  08/10/2020
+Service:  COMP &amp; FORCIBLE ENTRY AND DETAINER
+Method:  (CV) REGULAR MAIL
+Cost Per:  $
+
+
+   BROWN, LASHONA
+   540 EAST 108TH STREET
+   CLEVELAND, OH   44108
+   Tracking No: R000172807
+
+</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">08/13/2020</td><td class="formattedText">DELIVERED
+USPS DELIVERED LEFT WITH INDIVIDUAL - Service Date: 08/13/2020
+Tracking Number: 91 7190 1552 0709 1245 0031
+LASHONA BROWN (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="rowodd">
+                <td scope="row">08/13/2020</td><td class="formattedText">SIGNATURE
+Signature Received from USPS
+LASHONA BROWN Signature Document Attached
+Tracking Number: 7190 1552 0709 1245 0031
+LASHONA BROWN (DEFENDANT);</td><td class="currency"></td>
+        </tr><tr class="roweven">
+                <td scope="row">09/08/2020</td><td class="formattedText">PLAINTIFF HAVING FAILED TO PROCEED WITH THIS ACTION, SAME IS HEREBY DISMISSED FOR WANT OF PROSECUTION AT PLAINTIFF'S COSTS FOR WHICH JUDGMENT IS RENDERED.  AS TO 1ST CAUSE ONLY.</td><td class="currency"></td>
+        </tr>
+</tbody>
+</table>
+	  
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1614b">
+
+
+	
+
+
+
+
+	
+<div id="financialInfo" class="subsection2 bgClr1 financialSection">
+	<div class="subSectionHeader"><h4><div>Financial Summary</div></h4></div>
+	<table id="id16133" summary="Table displaying the dockets for this case ordered chronologically by date." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Cost Type</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Owed</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Paid</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Adjusted</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Amount Outstanding</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+	<tr class="footers">
+		
+			<th><span></span></th>
+		
+			<th class="currency">$110.00</th>
+		
+			<th class="currency">$110.00</th>
+		
+			<th class="currency">$0.00</th>
+		
+			<th class="currency">$0.00</th>
+		
+	</tr>
+
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td>COSTS</td><td class="currency">$110.00</td><td class="currency">$110.00</td><td class="currency">
+	
+	
+	$0.00
+	<div id="id16130" style="display:none"></div>
+</td><td class="currency">$0.00</td>
+        </tr>
+</tbody>
+</table>
+	
+	
+	
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1614c">
+
+
+	
+
+
+
+
+	
+<div id="receiptInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Receipts</div></h4></div>
+	<table id="id16135" summary="Table displaying the Receipts on this case." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Receipt Number</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Receipt Date</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Received From</span>
+			</th>
+		
+			<th scope="col" class="currency header">
+					<span>Payment Amount</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+	<tr class="footers">
+		
+			<th><span></span></th>
+		
+			<th><span></span></th>
+		
+			<th><span></span></th>
+		
+			<th class="currency">$110.00</th>
+		
+	</tr>
+
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td>3212670</td><td scope="row">08/05/2020</td><td>LOWDER ESQ, CRISTINA                    </td><td class="currency">$110.00</td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel" id="id1614d">
+
+
+	
+
+
+
+
+	
+<div id="dispositionInfo" class="subsection2 bgClr1">
+	 <div class="subSectionHeader"><h4><div>Case Disposition</div></h4></div>
+	<table id="id16136" summary="Table displaying the dispositions on this case ordered chronologically." class="tablesorter">
+<thead>
+  
+	<tr class="headers">
+		
+			<th scope="col" class="header">
+					<span>Disposition</span>
+			</th>
+		
+			<th scope="col" class="header">
+					<span>Date</span>
+			</th>
+		
+	</tr>
+
+</thead>
+<tfoot>
+        
+</tfoot>
+<tbody>
+        <tr class="roweven">
+                <td scope="row">UNDISPOSED</td><td></td>
+        </tr>
+</tbody>
+</table>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="allInfoPanel">
+
+
+	
+
+
+
+
+	
+<div id="additionalFieldsInfo" class="subsection2 bgClr1">
+	<div class="subSectionHeader"><h4><div>Additional Fields</div></h4></div>
+	<div class="infoChildSection addlFields">
+		<div class="box addlFldsSec">
+			<dl>
+				
+					<dt>PRAYER AMOUNT:</dt><dd>SEE COMPLAINT</dd>
+				
+			</dl>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+	</div>
+</div>
+
+</div>
+
+<div class="ui-layout-south pane pane-south open" style="display: block; visibility: visible; position: absolute; margin: 0px; z-index: 2; top: auto; bottom: 0px; left: 0px; right: 0px; width: auto; height: 42px;" pane="south">
+	<div id="footer">
+<div id="footerLogo" title="eServices provided by CourtView Justice Solutions."></div>
+<div id="footerContent">
+	<p>CourtView Justice Solutions Inc. an equivant company, Copyright 2020</p>
+	<div class="versionId">1.23.03</div>
+	
+	
+</div>
+</div>
+</div>
+<div id="sessionLocaleLanguage" class="hidden">EN-US</div>
+<div id="serverName" class="hidden">xxx.xxx.xxx.xxx</div>
+<div id="sessionId" class="hidden">yyyyyyyyyyyyyy</div>
+<div id="generationTime" class="hidden">0000</div>
+<div id="generationSize" class="hidden">0000</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	var myLayout; // a var is required because this page utilizes: myLayout.allowOverflow() method
+	window.cjsBrowserRenderEndTime = new Date();
+	});
+</script>
+<script type="text/javascript" id="JavaScriptMarkupResponseLastScript">&lt;!--/*--&gt;&lt;![CDATA[/*&gt;&lt;!--*/
+window.cjsBrowserRenderEndTime = new Date();
+/*--&gt;]]&gt;*/</script>
+
+
+<span title="Slide Open" id="EastPane-resizer" resizer="east" class="resizer resizer-east resizer-closed resizer-east-closed ui-draggable" style="cursor: pointer; position: absolute; padding: 0px; margin: 0px; font-size: 1px; text-align: left; overflow: hidden; z-index: 1; right: 0px; height: 802px; width: 6px; top: 82px; display: none; visibility: visible;"><div id="EastPane-toggler" title="Open This Pane" class="toggler toggler-east toggler-closed toggler-east-closed" style="position: absolute; display: block; padding: 0px; margin: 0px; overflow: hidden; text-align: center; font-size: 1px; cursor: pointer; z-index: 1; height: 35px; width: 6px; top: 384px;"></div></span><span title="Slide Open" id="WestPane-resizer" resizer="west" class="resizer resizer-west resizer-closed resizer-west-closed ui-draggable" style="cursor: pointer; position: absolute; padding: 0px; margin: 0px; font-size: 1px; text-align: left; overflow: hidden; z-index: 1; left: 0px; height: 804px; width: 6px; top: 82px;"><div id="WestPane-toggler" title="Open Navigations" class="toggler toggler-west toggler-closed toggler-west-closed" style="position: absolute; display: block; padding: 0px; margin: 0px; overflow: hidden; text-align: center; font-size: 1px; cursor: pointer; z-index: 1; height: 35px; width: 6px; top: 384px;"></div></span><div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-id16123" style="display: none; z-index: 1000; outline: 0px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-id16123">Please Wait...</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div style="" id="id16123" class="ui-dialog-content ui-widget-content">
+	<b><span id="id1614e" style="display:none"></span></b>
+	<br />
+	<br />
+	<br />
+	<center><img src="resources/org.apache.wicket.ajax.AbstractDefaultAjaxBehavior/indicator.gif" /></center>
+</div></div><div id="cluetip-waitimage" style="position: absolute; display: none;"></div><div id="cluetip" style="display: none; position: absolute;"><div id="cluetip-outer" class="ui-cluetip-outer" style="position: relative; z-index: 97;"><h3 id="cluetip-title" class="ui-widget-header ui-cluetip-header"></h3><div id="cluetip-inner" class="ui-widget-content ui-cluetip-content"></div></div><div id="cluetip-extra"></div><div id="cluetip-arrows" class="cluetip-arrows"></div></div></body></html>
