@@ -23,13 +23,15 @@ if len(sys.argv) != 4:
 
 start_string = sys.argv[1]
 end_string = sys.argv[2]
-
 filename = sys.argv[3]
 
 START_DATE = datetime.datetime.strptime(start_string, '%m/%d/%Y')
 END_DATE = datetime.datetime.strptime(end_string, '%m/%d/%Y')
 
-os.mkdir(os.getcwd() + '/page_source_files/' + datetime.datetime.today().strftime('%Y%m%d'))
+try:
+	os.mkdir(os.getcwd() + '/page_source_files/' + datetime.datetime.today().strftime('%Y%m%d'))
+except FileExistsError:
+	pass
 
 """
 with open(filename, 'w') as f:
@@ -90,12 +92,14 @@ def scrape_page_results(tracker, current_page):
 	for row_num in range(rows):
 		try:
 			row = tracker.get_table_row((row_num+1))
+			# print('row', row)
 			# Follow case link
 			row.click()
 		except:
-			time.sleep(2)
+			time.sleep(1)
 			try:
 				row = tracker.get_table_row((row_num+1))
+				print('row backup', row)
 				# Follow case link
 				row.click()
 			except IndexError:
@@ -103,13 +107,14 @@ def scrape_page_results(tracker, current_page):
 				time.sleep(1)
 				break
 
-		time.sleep(1)
+		time.sleep(2)
 
 		# Parse/store data
 		tracker.store_data(filename)
 
 		# Go back to previous page with other case elements
 		tracker.back_page()
+		time.sleep(1)
 
 
 def main():	
@@ -149,10 +154,16 @@ def main():
 		except:
 			total_results = 0
 
+
+		if total_results > 100:
+			print("LONG DAY", date)
+			date += datetime.timedelta(days=1)
+			continue
+
 		# CourtView will display a max of three pages of results and a max of 100 items, so find how many pages we'd expect from the results.
 		# If there are more than 100 results for the selected date, we have a small problem that we can work on later
 		# There are 40 results to a page, so floor divide by 40 (and add one)
-		num_pages = min(3, ((total_results // 40) + 1))
+		num_pages = min(3, ((total_results // 41) + 1))
 		print(num_pages)
 
 		if num_pages == 1:

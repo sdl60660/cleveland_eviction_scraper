@@ -16,13 +16,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+import pickle
+
 START_PAGE = 'https://clevelandmunicipalcourt.org/public-access'
 
 class MuniCourtTracker():
 
     def __init__(self):
-        cookies = [{'domain': 'eservices.cmcoh.org', 'httpOnly': True, 'name': 'JSESSIONID', 'path': '/eservices', 'secure': True, 'value': '31AE7432FE62EA5C2B26AE4C320E1EF1'}]
-        
+        # cookies = [{'domain': 'eservices.cmcoh.org', 'httpOnly': True, 'name': 'JSESSIONID', 'path': '/eservices', 'secure': True, 'value': '41E51EECE106E6611F15B6B7359DD055'}]                
+        cookies = pickle.load(open("cookies.pkl", "rb"))
         chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument('--no-sandbox')
         # chrome_options.add_argument('--headless')
@@ -31,7 +33,7 @@ class MuniCourtTracker():
         self.driver.get(START_PAGE)
         for cookie in cookies:
             self.driver.add_cookie(cookie)
-        self.driver.implicitly_wait(3)
+        self.driver.implicitly_wait(10)
 
         # Get to search page
         for button in ["   I Accept   ", "Click Here", "Case Type Search"]:
@@ -42,7 +44,8 @@ class MuniCourtTracker():
                 time.sleep(10)
                 self.click_button_name(button_name=button)
 
-        print(self.driver.get_cookies())
+        pickle.dump(self.driver.get_cookies(), open("cookies.pkl","wb"))
+        # print(self.driver.get_cookies())
 
     def __repr__(self):
         return ('<Selenium Driver for CLE Municipal Courts. Current Page: {}>'.format(str(self.driver.current_url)))
@@ -110,7 +113,12 @@ class MuniCourtTracker():
         csv_dict = {}
 
         # Case Name
-        case_name = self.driver.find_elements_by_xpath('*//div[@id="titleBar"]//h2')[0].text.replace('\t', '').replace('\n', '').strip(' ')
+        try:
+            case_name = self.driver.find_elements_by_xpath('*//div[@id="titleBar"]//h2')[0].text.replace('\t', '').replace('\n', '').strip(' ')
+        except:
+            time.sleep(4)
+            case_name = self.driver.find_elements_by_xpath('*//div[@id="titleBar"]//h2')[0].text.replace('\t', '').replace('\n', '').strip(' ')
+
         csv_dict['Case Name'] = case_name
 
         # Case Number
