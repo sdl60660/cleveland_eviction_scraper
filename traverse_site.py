@@ -156,9 +156,12 @@ def main():
 
 
 		if total_results > 100:
-			print("LONG DAY", date)
-			date += datetime.timedelta(days=1)
-			continue
+			# print("LONG DAY", date)
+			# date += datetime.timedelta(days=1)
+			# continue
+
+			# Round down for now
+			total_results = 100
 
 		# CourtView will display a max of three pages of results and a max of 100 items, so find how many pages we'd expect from the results.
 		# If there are more than 100 results for the selected date, we have a small problem that we can work on later
@@ -178,10 +181,12 @@ def main():
 			if current_page_index == num_pages:
 				current_page_index = 1
 				tracker.back_page()
+				time.sleep(1)
 				date += datetime.timedelta(days=1)
 			else:
 				current_page_index += 1
 				tracker.back_page()
+				time.sleep(0.2)
 				tracker.back_page()
 
 		# tracker.back_page()

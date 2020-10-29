@@ -78,6 +78,9 @@ class MuniCourtTracker():
         text = self.driver.find_elements_by_xpath('*//div[@id="srchResultNotice"]')
         if len(text) == 0:
             return 0
+        elif ' of ' in text[0].text:
+            num_rows = int(text[0].text.split(' ')[3])
+            return num_rows
         else:
             num_rows = int(text[0].text.split(' ')[2])
             return num_rows
