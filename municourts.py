@@ -1,4 +1,4 @@
-# 2017 data on evictions
+
 
 from bs4 import BeautifulSoup
 import requests
@@ -6,6 +6,7 @@ import requests
 import csv
 import json
 import time
+import os
 import datetime
 
 from selenium import webdriver
@@ -189,8 +190,15 @@ class MuniCourtTracker():
         csv_dict['Disposition Date'] = disposition_table.find_all('td')[-1].text
 
         date_string = datetime.datetime.today().strftime('%Y%m%d')
-        with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
-            f.write(self.driver.page_source)
+
+        try:
+            with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
+                f.write(self.driver.page_source)
+        except FileNotFoundError:
+            os.mkdir(os.getcwd() + '/page_source_files/' + datetime.datetime.today().strftime('%Y%m%d'))
+            with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
+                f.write(self.driver.page_source)
+
 
 
         # NEW FIELDS HERE

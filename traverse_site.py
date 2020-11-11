@@ -33,15 +33,16 @@ try:
 except FileExistsError:
 	pass
 
-"""
-with open(filename, 'w') as f:
-	fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
-	'Defendants', 'Property Address', 'Property City',
-	'Plaintiff', 'Plaintiff Address', 'Plaintiff City',
-	'Costs', 'Disposition Status', 'Disposition Date']
-	out_csv = csv.DictWriter(f, fieldnames=fields)
-	out_csv.writeheader()
-"""
+
+# If output file doesn't exist yet, create and add header. Otherwise, we're appending to an existing file
+if os.path.isfile(filename) == False:
+	with open(filename, 'w') as f:
+		fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
+		'Defendants', 'Property Address', 'Property City',
+		'Plaintiff', 'Plaintiff Address', 'Plaintiff City',
+		'Costs', 'Disposition Status', 'Disposition Date']
+		out_csv = csv.DictWriter(f, fieldnames=fields)
+		out_csv.writeheader()
 
 def start_up(tracker):
 	time.sleep(2)
