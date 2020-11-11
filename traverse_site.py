@@ -4,7 +4,7 @@ from municourts import MuniCourtTracker
 from captcha.recaptcha_v2 import RecaptchaV2
 
 import time
-import datetime
+from datetime import datetime, timedelta
 import sys
 import csv
 import os
@@ -25,11 +25,11 @@ start_string = sys.argv[1]
 end_string = sys.argv[2]
 filename = sys.argv[3]
 
-START_DATE = datetime.datetime.strptime(start_string, '%m/%d/%Y')
-END_DATE = datetime.datetime.strptime(end_string, '%m/%d/%Y')
+START_DATE = datetime.strptime(start_string, '%m/%d/%Y')
+END_DATE = datetime.strptime(end_string, '%m/%d/%Y')
 
 try:
-	os.mkdir(os.getcwd() + '/page_source_files/' + datetime.datetime.today().strftime('%Y%m%d'))
+	os.mkdir(os.getcwd() + '/page_source_files/' + datetime.today().strftime('%Y%m%d'))
 except FileExistsError:
 	pass
 
@@ -128,7 +128,7 @@ def main():
 
 	while date != END_DATE:
 		time.sleep(1)
-		date_string = datetime.datetime.strftime(date, '%m/%d/%Y')
+		date_string = datetime.strftime(date, '%m/%d/%Y')
 		print(date_string)
 
 		try:
@@ -173,7 +173,7 @@ def main():
 		if num_pages == 1:
 			scrape_page_results(tracker, current_page_index)
 			tracker.back_page()
-			date += datetime.timedelta(days=1)
+			date += timedelta(days=1)
 		else:
 			print(current_page_index)
 			tracker.click_button_xpath('//*[@title="Go to page {}"]'.format(current_page_index))
@@ -183,7 +183,7 @@ def main():
 				current_page_index = 1
 				tracker.back_page()
 				time.sleep(1)
-				date += datetime.timedelta(days=1)
+				date += timedelta(days=1)
 			else:
 				current_page_index += 1
 				tracker.back_page()
