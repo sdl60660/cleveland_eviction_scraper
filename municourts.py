@@ -32,12 +32,12 @@ class MuniCourtTracker():
         cookies = pickle.load(open("cookies.pkl", "rb"))
         chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument('--no-sandbox')
-        # chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--headless')
         
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.driver.get(START_PAGE)
-        for cookie in cookies:
-            self.driver.add_cookie(cookie)
+        # for cookie in cookies:
+        #     self.driver.add_cookie(cookie)
         self.driver.implicitly_wait(8)
 
         # Click "I Accept" button on intial homepage
@@ -81,18 +81,25 @@ class MuniCourtTracker():
         return ('<Selenium Driver for CLE Municipal Courts. Current Page: {}>'.format(str(self.driver.current_url)))
 
 
-    def solve_captcha(self, captcha_image):
+    def grab_captcha_image(self, captcha_image, filename):
         # Get image source
         src = captcha_image.get_attribute('src')
 
         # Download image
         self.driver.get(src)
         self.driver.set_window_size(300, 300)
-        self.driver.save_screenshot("captcha.png")
+        self.driver.save_screenshot(filename)
 
-        # Init captch solver
+
+    def solve_captcha(self, captcha_image):
+        captcha_image_filename = "captcha.png"
+
+        # save captcha image to "captcha.png" file
+        self.grab_captcha_image(captcha_image, captcha_image_filename)
+        
+        # Init captcha solver
         solver = imagecaptcha()
-        solver.set_verbose(1)
+        # solver.set_verbose(1)
 
         # If you're someone else using this code, you'll need to get your own key here: https://anti-captcha.com/
         with open("captcha_key.txt", "r") as f:
@@ -100,20 +107,28 @@ class MuniCourtTracker():
             solver.set_key(captcha_api_key)
 
         # Have anticaptcha attempt the captcha five times and use the consensus answer (since they don't always get it right on one shot)
-        captcha_attempts = []
-        for attempt in range(0, 5):
+        total_attempts = 5
+        captcha_attempt_answers = []
+        print("Anticaptcha will be asked to solve captcha five times and we'll submit the consensus answer (since they do occasionally make mistakes)")
+        for attempt in range(0, total_attempts):
+            print("Solving captcha, attempt {} of {}".format(attempt+1, total_attempts))
+
             # Solve the captcha text and return answer
-            captcha_text = solver.solve_and_return_solution("captcha.png")
+            captcha_text = solver.solve_and_return_solution(captcha_image_filename)
             if captcha_text != 0:
                 print(f"captcha text {captcha_text}")
-                captcha_attempts.append(captcha_text)
+                captcha_attempt_answers.append(captcha_text)
             else:
                 print(f"task finished with error {solver.error_code}")
-                print("Captcha could not be solved. Try just running everything again.")
-                import sys
-                sys.exit(0)
+                captcha_attempt_answers.append("[Unsolved]")
 
-        consensus_answer = Counter(captcha_attempts).most_common(1)[0][0]
+        answer_counts = Counter(captcha_attempt_answers)
+        if "[Unsolved]" in answer_counts.keys() and answer_counts["[Unsolved]"] > 2:
+            print("Captcha could not be solved on greater than 2 of 5 attempts. Try running everything again to generate a fresh captcha.")
+            import sys
+            sys.exit(0)
+
+        consensus_answer = answer_counts.most_common(1)[0][0]
         return consensus_answer
 
 
