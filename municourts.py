@@ -32,7 +32,7 @@ class MuniCourtTracker():
         cookies = pickle.load(open("cookies.pkl", "rb"))
         chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument('--no-sandbox')
-        # chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--headless')
         
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.driver.get(START_PAGE)
