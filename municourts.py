@@ -14,7 +14,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
+
 from selenium.common.exceptions import NoSuchElementException
 
 from anticaptchaofficial.imagecaptcha import *
@@ -26,7 +26,7 @@ START_PAGE = 'https://clevelandmunicipalcourt.org/public-access'
 
 class MuniCourtCrawler():
 
-    def __init__(self, output_file, headless=True):
+    def __init__(self, output_file, headless=True, outfile_format='csv'):
         chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument('--no-sandbox')
         if headless:
@@ -35,6 +35,7 @@ class MuniCourtCrawler():
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.cookies = pickle.load(open("cookies.pkl", "rb"))
         self.outfile = output_file
+        self.outfile_format = outfile_format
 
     
     def __repr__(self):
@@ -143,6 +144,29 @@ class MuniCourtCrawler():
         return consensus_answer
 
     
+    def set_case_dict(self):
+        # Load existing data and transform from array of dicts into a dictionary that we can add to/update
+        try:
+            with open(self.outfile, 'r') as f:
+                json_array = json.load(f)
+                case_dict = { x['Case Number']: x for x in json_array }
+        # If outfile isn't an existing file, just create a new, empty dict
+        except FileExistsError:
+            case_dict = {}
+        # If outfile exists, but isn't in the correct format, throw and erro
+        except TypeError:
+            raise TypeError('If output file is an existing JSON, it must be in the format of an array of dicts.')
+        
+        self.case_dict = case_dict
+
+
+    def dump_case_dict(self):
+        case_array = list(self.case_dict.values())
+
+        with open(self.outfile, 'w') as f:
+            json.dump(case_array, f)
+
+
     def set_search_options(self):
         time.sleep(0.5)
 
@@ -189,20 +213,20 @@ class MuniCourtCrawler():
         
         # For each case element
         for row_num in range(rows):
-            try:
-                row = self.get_table_row((row_num+1))
-                # Follow case link
-                row.click()
+            # try:
+            row = self.get_table_row((row_num+1))
+            # Follow case link
+            row.click()
 
-                # Parse/store data
-                csv_dict = self.parse_data()
-                self.store_data(csv_dict)
+            # Parse/store data
+            csv_dict = self.parse_data()
+            self.store_data(csv_dict)
 
-                # Go back to previous page with other case elements
-                self.back_page()
-            except Exception as e:
-                time.sleep(1)
-                print(e)
+            # Go back to previous page with other case elements
+            self.back_page()
+            # except Exception as e:
+            #     time.sleep(1)
+            #     print(e)
 
 
     def search_date(self, date, current_page_index):
@@ -383,7 +407,7 @@ class MuniCourtCrawler():
                 try:
                     data_dict['Property Address'], data_dict['Property City'] = MuniCourtCrawler.get_address_info(row)
                 except:
-                    data_dict['Plaintiff Address'], data_dict['Plaintiff City'] = 'Address Error', 'Address Error'
+                    data_dict['Property Address'], data_dict['Property City'] = 'Address Error', 'Address Error'
 
         data_dict['Plaintiff'] = '; '.join(plaintiffs)
         data_dict['Defendants'] = '; '.join(defendants)
@@ -405,9 +429,9 @@ class MuniCourtCrawler():
         return data_dict
 
 
-    def store_data(self, csv_dict):
+    def store_data(self, data_dict):
         date_string = datetime.today().strftime('%Y%m%d')
-        case_number = csv_dict['Case Number']
+        case_number = data_dict['Case Number']
 
         try:
             # Keep record of scrape on specific date (as data will change)
@@ -423,7 +447,10 @@ class MuniCourtCrawler():
                 f.write(self.driver.page_source)
 
         # NEW FIELDS HERE
-        MuniCourtCrawler.write_to_csv(self.outfile, csv_dict)
+        if self.outfile_format == 'csv':
+            self.write_to_csv(data_dict)
+        elif self.outfile_format == 'json':
+            self.write_to_json(data_dict)
 
 
     def back_page(self):
@@ -434,11 +461,10 @@ class MuniCourtCrawler():
         self.driver.quit()
 
 
-    @staticmethod
-    def write_to_csv(filename, dictionary):
+    def write_to_csv(self, data_dictionary):
         # If output file doesn't exist yet, create and add header. Otherwise, we're appending to an existing file
-        if os.path.isfile(filename) == False:
-            with open(filename, 'w') as f:
+        if os.path.isfile(self.outfile) == False:
+            with open(self.outfile, 'w') as f:
                 fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
                 'Defendants', 'Property Address', 'Property City',
                 'Plaintiff', 'Plaintiff Address', 'Plaintiff City',
@@ -446,13 +472,52 @@ class MuniCourtCrawler():
                 out_csv = csv.DictWriter(f, fieldnames=fields)
                 out_csv.writeheader()
 
-        with open(filename, 'a') as f:
+        with open(self.outfile, 'a') as f:
             fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
                       'Defendants', 'Property Address', 'Property City',
                       'Plaintiff', 'Plaintiff Address', 'Plaintiff City',
                       'Costs', 'Disposition Status', 'Disposition Date']
             out_csv = csv.DictWriter(f, fieldnames=fields)
-            out_csv.writerow(dictionary)
+            data_dictionary = {k:v for k,v in data_dictionary.items() if k in fields}
+            out_csv.writerow(data_dictionary)
+    
+
+    def write_to_json(self, data_dictionary):
+        # fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
+        #         'Defendants', 'Property Address', 'Property City',
+        #         'Plaintiff', 'Plaintiff Address', 'Plaintiff City',
+        #         'Costs', 'Disposition Status', 'Disposition Date']
+        
+        
+        output_json = {
+            'Case Name': data_dictionary['Case Name'],
+            'Case Number': data_dictionary['Case Number'],
+            'Case Status': data_dictionary['Case Status'],
+            'File Date': data_dictionary['File Date'],
+            'Action': data_dictionary['Action'],
+            'Party Information': {
+                'Plaintiff': {
+                    'Name': data_dictionary['Plaintiff'],
+                    'Address':  { 
+                        'Street Address': data_dictionary['Plaintiff Address'],
+                        'City': data_dictionary['Plaintiff City']
+                    }
+                },
+                'Defendant(s)': {
+                    'Name(s)': data_dictionary['Defendants'],
+                    'Address': { 
+                        'Street Address': data_dictionary['Property Address'],
+                        'City': data_dictionary['Property City']
+                    }
+                }
+            },
+            'Property Address': {
+                'Street Address': data_dictionary['Property Address'],
+                'City': data_dictionary['Property City']
+            }
+        }
+        
+        self.case_dict[data_dictionary['Case Number']] = output_json
 
 
     @staticmethod
@@ -466,7 +531,7 @@ class MuniCourtCrawler():
         except:
             city = 'Cleveland, OH'
 
-        return address_line_1, city
+        return ' '.join(address_line_1.split()), city.strip()
     
 
     @staticmethod

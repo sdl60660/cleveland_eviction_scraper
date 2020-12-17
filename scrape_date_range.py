@@ -1,17 +1,23 @@
 
 from municourts import MuniCourtCrawler, create_page_source_directories
+from utils import prep_json_for_appending, close_off_json
 
 import time
 from datetime import datetime
 import sys
+import os
 
 
 def main(start_date, end_date, outfile_path):	
-	date = start_date
 	crawler = MuniCourtCrawler(outfile_path, headless=True)
+	
+	date = start_date
 	current_page_index = 1
-
 	error_count = 0
+
+	if os.path.splitext(outfile_path)[1] == '.json':
+		crawler.outfile_format = 'json'
+		crawler.set_case_dict()
 
 	while date != end_date:
 		try:
@@ -25,6 +31,10 @@ def main(start_date, end_date, outfile_path):
 		
 		if error_count > 5: 
 			break
+	
+	if os.path.splitext(outfile_path)[1] == '.json':
+		crawler.dump_case_dict()
+
 		
 if __name__ == "__main__":
 	if len(sys.argv) != 4:
