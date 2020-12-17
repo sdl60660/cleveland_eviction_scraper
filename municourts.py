@@ -33,6 +33,8 @@ class MuniCourtCrawler():
             chrome_options.add_argument('--headless')
         
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        self.driver.implicitly_wait(8)
+
         self.cookies = pickle.load(open("cookies.pkl", "rb"))
         self.outfile = output_file
         self.outfile_format = outfile_format
@@ -46,7 +48,6 @@ class MuniCourtCrawler():
         self.driver.get(START_PAGE)
         for cookie in self.cookies:
             self.driver.add_cookie(cookie)
-        self.driver.implicitly_wait(8)
 
         # Click "I Accept" button on intial homepage
         try:
@@ -151,7 +152,7 @@ class MuniCourtCrawler():
                 json_array = json.load(f)
                 case_dict = { x['Case Number']: x for x in json_array }
         # If outfile isn't an existing file, just create a new, empty dict
-        except FileExistsError:
+        except FileNotFoundError:
             case_dict = {}
         # If outfile exists, but isn't in the correct format, throw and erro
         except TypeError:
@@ -219,8 +220,8 @@ class MuniCourtCrawler():
             row.click()
 
             # Parse/store data
-            csv_dict = self.parse_data()
-            self.store_data(csv_dict)
+            data_dict = self.parse_data()
+            self.store_data(data_dict)
 
             # Go back to previous page with other case elements
             self.back_page()
@@ -342,24 +343,26 @@ class MuniCourtCrawler():
         return self.driver.find_elements_by_xpath('//*[@id="grid"]/tbody/tr[{}]//a'.format(num))[0]
 
 
-    def parse_to_soup(self):
-        html = self.driver.page_source
-        soup = BeautifulSoup(html, 'html.parser')
+    def parse_to_soup(self, page_source=None):
+        if not page_source:
+            page_source = self.driver.page_source
+        soup = BeautifulSoup(page_source, 'lxml')
         return soup
 
 
-    def parse_data(self):
-        soup = self.parse_to_soup()
+    def parse_data(self, page_source=None):
+        soup = self.parse_to_soup(page_source)
 
         data_dict = {}
 
         # Case Name
         try:
-            case_name = self.driver.find_elements_by_xpath('*//div[@id="titleBar"]//h2')[0].text.replace('\t', '').replace('\n', '').strip(' ')
+            case_name = soup.find('div', attrs={'id': 'titleBar'}).find('h2').text.replace('\t', '').replace('\n', '').strip(' ')
         except:
-            time.sleep(4)
-            case_name = self.driver.find_elements_by_xpath('*//div[@id="titleBar"]//h2')[0].text.replace('\t', '').replace('\n', '').strip(' ')
+            time.sleep(3)
+            case_name = soup.find('div', attrs={'id': 'titleBar'}).find('h2').text.replace('\t', '').replace('\n', '').strip(' ')
 
+        case_name = ' '.join(case_name.split())
         data_dict['Case Name'] = case_name
 
         # Case Number
@@ -429,9 +432,21 @@ class MuniCourtCrawler():
         return data_dict
 
 
-    def store_data(self, data_dict):
-        date_string = datetime.today().strftime('%Y%m%d')
+    def store_data(self, data_dict, dump_source_file=True):
         case_number = data_dict['Case Number']
+
+        if dump_source_file:
+            self.dump_page_source_file(case_number)
+
+        # NEW FIELDS HERE
+        if self.outfile_format == 'csv':
+            self.write_to_csv(data_dict)
+        elif self.outfile_format == 'json':
+            self.write_to_json(data_dict)
+
+
+    def dump_page_source_file(self, case_number):
+        date_string = datetime.today().strftime('%Y%m%d')
 
         try:
             # Keep record of scrape on specific date (as data will change)
@@ -441,16 +456,11 @@ class MuniCourtCrawler():
             # Add or replace to store of all files
             with open(f'page_source_files/all_data/{case_number}.html', 'w') as f:
                 f.write(self.driver.page_source)
+
         except FileNotFoundError:
             os.mkdir(os.getcwd() + '/page_source_files/' + datetime.today().strftime('%Y%m%d'))
             with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
                 f.write(self.driver.page_source)
-
-        # NEW FIELDS HERE
-        if self.outfile_format == 'csv':
-            self.write_to_csv(data_dict)
-        elif self.outfile_format == 'json':
-            self.write_to_json(data_dict)
 
 
     def back_page(self):
