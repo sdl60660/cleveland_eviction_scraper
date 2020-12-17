@@ -454,6 +454,7 @@ class MuniCourtCrawler():
             out_csv = csv.DictWriter(f, fieldnames=fields)
             out_csv.writerow(dictionary)
 
+
     @staticmethod
     def get_address_info(row):
         contact_data = row.find('div', attrs={'class': 'box ptyContact'})
@@ -467,6 +468,7 @@ class MuniCourtCrawler():
 
         return address_line_1, city
     
+
     @staticmethod
     def is_int(a):
         try:
@@ -474,3 +476,22 @@ class MuniCourtCrawler():
         except ValueError:
             return False
 
+
+def create_page_source_directories():
+    # Create directory to store page source files (if it doesn't already exist)
+    try:
+        os.mkdir(os.getcwd() + '/page_source_files')
+    except FileExistsError:
+        pass
+
+    # Create directory (if it doesn't exist) within page_source_files to store this day's raw source files (as they may change over time)
+    try:
+        os.mkdir(os.getcwd() + '/page_source_files/' + datetime.today().strftime('%Y%m%d'))
+    except FileExistsError:
+        pass
+
+    # Create directory (if it doesn't exist) within page_source_files to store all most up-to-date source files for given cases
+    try:
+        os.mkdir(os.getcwd() + '/page_source_files/all_data')
+    except FileExistsError:
+        pass
