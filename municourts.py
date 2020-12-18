@@ -128,7 +128,7 @@ class MuniCourtCrawler():
         # Have anticaptcha attempt the captcha seven times and use the consensus answer (since they don't always get it right on one shot)
         total_attempts = 7
         captcha_attempt_answers = []
-        print("Anticaptcha will be asked to solve captcha five times and we'll submit the consensus answer (since they do occasionally make mistakes)")
+        print("Anticaptcha will be asked to solve captcha seven times and we'll submit the consensus answer (since they do occasionally make mistakes)")
         for attempt in range(0, total_attempts):
             print("Solving captcha, attempt {} of {}".format(attempt+1, total_attempts))
 
@@ -656,7 +656,7 @@ class MuniCourtCrawler():
         try:
             line1 = full_address_element.find('div', attrs={'class':'addrLn1'}).text.strip()
             line2 = full_address_element.find('div', attrs={'class':'addrLn2'}).text.strip()
-            line3 = full_address_element.find('div', attrs={'class':'addrLn2'}).text.strip()
+            line3 = full_address_element.find('div', attrs={'class':'addrLn3'}).text.strip()
 
             attorney_address = line1
             for line in [line2, line3]:
