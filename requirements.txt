@@ -2,3 +2,8 @@ selenium==3.8.1
 bs4
 anticaptchaofficial==1.0.26
 lxml
+pytest
+boto3
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib

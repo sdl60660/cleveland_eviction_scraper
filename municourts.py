@@ -5,6 +5,7 @@ import csv
 import json
 import time
 import os
+import re
 from datetime import datetime, timedelta
 import urllib.request
 
@@ -26,18 +27,23 @@ START_PAGE = 'https://clevelandmunicipalcourt.org/public-access'
 
 class MuniCourtCrawler():
 
-    def __init__(self, output_file, headless=True, outfile_format='csv'):
+    def __init__(self, output_file, headless=True):
         chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument('--no-sandbox')
         if headless:
             chrome_options.add_argument('--headless')
         
-        self.driver = webdriver.Chrome(chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.implicitly_wait(8)
 
         self.cookies = pickle.load(open("cookies.pkl", "rb"))
         self.outfile = output_file
-        self.outfile_format = outfile_format
+
+        if os.path.splitext(output_file)[1] == '.json':
+            self.outfile_format = 'json'
+            self.set_case_dict()
+        else:
+            self.outfile_format = 'csv'
 
     
     def __repr__(self):
@@ -82,7 +88,7 @@ class MuniCourtCrawler():
                 self.click_button_name(button_name=button)
 
         pickle.dump(self.driver.get_cookies(), open("cookies.pkl","wb"))
-        # print(self.driver.get_cookies())
+        self.cookies = self.driver.get_cookies()
     
 
     def navigate_to_search_menu(self, menu_name):
@@ -119,8 +125,8 @@ class MuniCourtCrawler():
             captcha_api_key = f.read()
             solver.set_key(captcha_api_key)
 
-        # Have anticaptcha attempt the captcha five times and use the consensus answer (since they don't always get it right on one shot)
-        total_attempts = 5
+        # Have anticaptcha attempt the captcha seven times and use the consensus answer (since they don't always get it right on one shot)
+        total_attempts = 7
         captcha_attempt_answers = []
         print("Anticaptcha will be asked to solve captcha five times and we'll submit the consensus answer (since they do occasionally make mistakes)")
         for attempt in range(0, total_attempts):
@@ -201,6 +207,14 @@ class MuniCourtCrawler():
         self.click_button_xpath(button_xpath='//*[@name="submitLink"]')
         #tracker.wait_until_loaded('//*[@id="grid"]/tbody/tr//a')
 
+
+    def fill_case_number_and_press(self, case_number):
+        # Fill Case Number box
+        self.fill_box(element_id="caseDscr", element_xpath=None, text=case_number)
+
+        # Press Submit button
+        self.click_button_xpath(button_xpath='//*[@name="submitLink"]')
+
     
     def scrape_page_results(self, current_page):
         # Find case elements on the page
@@ -274,6 +288,30 @@ class MuniCourtCrawler():
             current_page_index += 1
 
         return date, current_page_index
+
+
+    def search_case_number(self, case_number):
+        # IMPORTANT: Can only run starting from "Case Number Search" menu (will return to this menu at function end)
+        
+        # If not search menu page, throw error and exit
+        if not self.is_element_on_page('//span[text()="Case Number Search"]'):
+            raise RuntimeError("The search_date method can only be run from the search page. Crawler must be navigated to that page before running (using 'enter_site', then 'navigate_to_search_menu')")
+        # If not on the "Case Type Search" tab of the search menu, throw error and exit
+        if 'selected' not in self.driver.find_element_by_xpath('//span[text()="Case Number Search"]/ancestor::li').get_attribute("class"):
+            raise RuntimeError("The search_date method can only be run from the 'Case Number Search' tab. Crawler must be navigated to that tab before running (using 'navigate_to_search_menu)")
+
+        self.fill_case_number_and_press(case_number)
+        # Attempt again if error
+        while self.is_element_on_page('//span[@class="feedbackPanelERROR"]'):
+            self.fill_case_number_and_press(case_number)
+        
+        self.click_button_name(button_name=case_number)
+
+        data_dict = self.parse_data()
+        self.store_data(data_dict)
+
+        self.click_button_name(button_name="Search")
+
 
 
     def click_button_name(self, button_name):
@@ -389,6 +427,12 @@ class MuniCourtCrawler():
         parties = soup.find('div', attrs={'id':'ptyContainer'})
         rows = parties.find_all('div', attrs={'class': 'rowodd'}) + parties.find_all('div', attrs={'class': 'roweven'})
 
+        # Initialize all of these to prevent future key errors for rare (*very rare* exceptions)
+        for field in ['Defendant Alias', 'Plaintiff Alias', 'Defendant Attorney', 'Defendant Attorney Address', \
+                    'Defendant Attorney City', 'Defendant Attorney Phone', 'Plaintiff Attorney', 'Plaintiff Attorney Address', \
+                    'Plaintiff Attorney City', 'Plaintiff Attorney Phone']:
+            data_dict[field] = ''
+
         for row in rows:
             try:
                 header = row.find_all('div',attrs={'class': 'subSectionHeader2'})[0]
@@ -396,38 +440,71 @@ class MuniCourtCrawler():
             except:
                 continue
 
-            if text.split(' - ')[1] == 'DEFENDANT':
+            if text.split(' - ')[-1] == 'DEFENDANT':
                 defendants.append(text.split(' - ')[0])
 
-            elif text.split(' - ')[1] == 'PLAINTIFF':
+                # Get Attorney Info
+                data_dict['Defendant Attorney'], data_dict['Defendant Attorney Address'], \
+                data_dict['Defendant Attorney City'], data_dict['Defendant Attorney Phone'] = MuniCourtCrawler.get_attorney_info(row)
+
+                if row.find('h5', text="Alias").parent.find('dd', attrs={'class': 'ptyAfflName'}):
+                    data_dict['Defendant Alias'] = row.find('h5', text="Alias").parent.find('dd', attrs={'class': 'ptyAfflName'}).text
+
+            elif text.split(' - ')[-1] == 'PLAINTIFF':
                 plaintiffs.append(text.split(' - ')[0])
                 try:
                     data_dict['Plaintiff Address'], data_dict['Plaintiff City'] = MuniCourtCrawler.get_address_info(row)
                 except:
                     data_dict['Plaintiff Address'], data_dict['Plaintiff City'] = 'Address Error', 'Address Error'
+                
+                # Get Attorney Info
+                data_dict['Plaintiff Attorney'], data_dict['Plaintiff Attorney Address'], \
+                data_dict['Plaintiff Attorney City'], data_dict['Plaintiff Attorney Phone'] = MuniCourtCrawler.get_attorney_info(row)
 
-            elif text.split(' - ')[1] == 'PROPERTY ADDRESS':
+                if row.find('h5', text="Alias").parent.find('dd', attrs={'class': 'ptyAfflName'}):
+                    data_dict['Plaintiff Alias'] = row.find('h5', text="Alias").parent.find('dd', attrs={'class': 'ptyAfflName'}).text
+
+            elif text.split(' - ')[-1] == 'PROPERTY ADDRESS':
                 try:
                     data_dict['Property Address'], data_dict['Property City'] = MuniCourtCrawler.get_address_info(row)
                 except:
                     data_dict['Property Address'], data_dict['Property City'] = 'Address Error', 'Address Error'
 
+        for field in ['Property Address', 'Property City', 'Plaintiff Address', 'Plaintiff City']:
+            if field not in data_dict.keys():
+                data_dict[field] = 'MISSING FROM RECORD'
+        
         data_dict['Plaintiff'] = '; '.join(plaintiffs)
         data_dict['Defendants'] = '; '.join(defendants)
 
+        # Events
+        try:
+            data_dict['Events'] = MuniCourtCrawler.process_event_data(soup)
+        except AttributeError:
+            data_dict['Events'] = []
+
+        # Docket Information
+        try:
+            data_dict['Docket Information'] = MuniCourtCrawler.process_docket_data(soup)
+        except AttributeError:
+            data_dict['Docket Information'] = []
+
         # Costs
         costs_table = soup.find('div', attrs={'id':'financialInfo'}).find('table')
-        # try:
         data_dict['Costs'] = costs_table.find('tfoot').find_all('th',attrs={'class': 'currency'})[0].text
-        # except:
-            # data_dict['Costs'] = ''
-
 
         # Disposition Status, Disposition Date
-
         disposition_table = soup.find('div', attrs={'id':'dispositionInfo'}).find('table').find('tbody')
         data_dict['Disposition Status'] = disposition_table.find_all('td')[0].text
         data_dict['Disposition Date'] = disposition_table.find_all('td')[-1].text
+
+        # Prayer Amount
+        data_dict['Prayer Amount'] = ''
+        additional_fields_box = soup.find('div', attrs={'id': 'additionalFieldsInfo'})
+        if additional_fields_box:
+            prayer_amount_row = additional_fields_box.find('dt', text=re.compile("PRAYER AMOUNT*"))
+            if prayer_amount_row:
+                data_dict['Prayer Amount'] = prayer_amount_row.findNext('dd').text
 
         return data_dict
 
@@ -473,32 +550,25 @@ class MuniCourtCrawler():
 
     def write_to_csv(self, data_dictionary):
         # If output file doesn't exist yet, create and add header. Otherwise, we're appending to an existing file
+        csv_fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
+                    'Defendants', 'Property Address', 'Property City', 'Plaintiff', 'Plaintiff Address',
+                    'Plaintiff City', 'Costs', 'Disposition Status', 'Disposition Date', 'Defendant Alias',
+                    'Plaintiff Alias', 'Defendant Attorney', 'Defendant Attorney Address', 'Defendant Attorney City',
+                    'Defendant Attorney Phone', 'Plaintiff Attorney', 'Plaintiff Attorney Address', 
+                    'Plaintiff Attorney City', 'Plaintiff Attorney Phone', 'Prayer Amount']
+
         if os.path.isfile(self.outfile) == False:
             with open(self.outfile, 'w') as f:
-                fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
-                'Defendants', 'Property Address', 'Property City',
-                'Plaintiff', 'Plaintiff Address', 'Plaintiff City',
-                'Costs', 'Disposition Status', 'Disposition Date']
-                out_csv = csv.DictWriter(f, fieldnames=fields)
+                out_csv = csv.DictWriter(f, fieldnames=csv_fields)
                 out_csv.writeheader()
 
         with open(self.outfile, 'a') as f:
-            fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
-                      'Defendants', 'Property Address', 'Property City',
-                      'Plaintiff', 'Plaintiff Address', 'Plaintiff City',
-                      'Costs', 'Disposition Status', 'Disposition Date']
-            out_csv = csv.DictWriter(f, fieldnames=fields)
-            data_dictionary = {k:v for k,v in data_dictionary.items() if k in fields}
+            out_csv = csv.DictWriter(f, fieldnames=csv_fields)
+            data_dictionary = {k:v for k,v in data_dictionary.items() if k in csv_fields}
             out_csv.writerow(data_dictionary)
     
 
     def write_to_json(self, data_dictionary):
-        # fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
-        #         'Defendants', 'Property Address', 'Property City',
-        #         'Plaintiff', 'Plaintiff Address', 'Plaintiff City',
-        #         'Costs', 'Disposition Status', 'Disposition Date']
-        
-        
         output_json = {
             'Case Name': data_dictionary['Case Name'],
             'Case Number': data_dictionary['Case Number'],
@@ -511,31 +581,58 @@ class MuniCourtCrawler():
                     'Address':  { 
                         'Street Address': data_dictionary['Plaintiff Address'],
                         'City': data_dictionary['Plaintiff City']
-                    }
+                    },
+                    'Alias': data_dictionary['Plaintiff Alias']
                 },
                 'Defendant(s)': {
-                    'Name(s)': data_dictionary['Defendants'],
+                    'Name': data_dictionary['Defendants'],
                     'Address': { 
                         'Street Address': data_dictionary['Property Address'],
                         'City': data_dictionary['Property City']
-                    }
+                    },
+                    'Alias': data_dictionary['Defendant Alias']
+                },
+                'Plaintiff Attorney': {
+                    'Name': data_dictionary['Plaintiff Attorney'],
+                    'Address':  { 
+                        'Street Address': data_dictionary['Plaintiff Attorney Address'],
+                        'City': data_dictionary['Plaintiff Attorney City']
+                    },
+                    'Phone': data_dictionary['Plaintiff Attorney Phone']
+                },
+                'Defendant Attorney': {
+                    'Name': data_dictionary['Defendant Attorney'],
+                    'Address':  { 
+                        'Street Address': data_dictionary['Defendant Attorney Address'],
+                        'City': data_dictionary['Defendant Attorney City']
+                    },
+                    'Phone': data_dictionary['Defendant Attorney Phone']
                 }
             },
             'Property Address': {
                 'Street Address': data_dictionary['Property Address'],
                 'City': data_dictionary['Property City']
-            }
+            },
+            'Events': data_dictionary['Events'],
+            'Docket Information': data_dictionary['Docket Information'],
+            'Prayer Amount': data_dictionary['Prayer Amount'],
+            'Disposition': {
+                'Disposition Status': data_dictionary['Disposition Status'],
+                'Disposition Date': data_dictionary['Disposition Date']
+            },
+            'Total Costs': data_dictionary['Costs']
         }
         
         self.case_dict[data_dictionary['Case Number']] = output_json
+        return output_json
 
 
     @staticmethod
     def get_address_info(row):
         contact_data = row.find('div', attrs={'class': 'box ptyContact'})
         address = contact_data.find('dl').find('dd')
-        address_line_1 = address.find('div',attrs={'class': 'addrLn1'}).text
-        # address_line_2 = address.find('div',attrs={'class': 'addrLn2'}).text
+        address_line_1 = address.find('div', attrs={'class': 'addrLn1'}).text
+        # address_line_2 = address.find('div', attrs={'class': 'addrLn2'}).text
         try:
             city = address.find_all('span')[0].text.title() + ', ' + address.find_all('span')[1].text
         except:
@@ -543,6 +640,82 @@ class MuniCourtCrawler():
 
         return ' '.join(address_line_1.split()), city.strip()
     
+
+    @staticmethod
+    def get_attorney_info(row):
+        attorney_data_div = row.find('h5', text='Party Attorney').parent.find('div')
+        if not attorney_data_div:
+            return '', '', '', ''
+        
+        # Attorney Name
+        attorney_name = attorney_data_div.find('dt', text=re.compile("Attorney*")).findNext('dd').text
+
+        full_address_element = attorney_data_div.find('dt', text=re.compile('Address*')).findNext('dd')
+        
+        # Attorney Address
+        try:
+            line1 = full_address_element.find('div', attrs={'class':'addrLn1'}).text.strip()
+            line2 = full_address_element.find('div', attrs={'class':'addrLn2'}).text.strip()
+            line3 = full_address_element.find('div', attrs={'class':'addrLn2'}).text.strip()
+
+            attorney_address = line1
+            for line in [line2, line3]:
+                if line != '':
+                    attorney_address += '\n' + line
+        except AttributeError:
+            attorney_address = ''
+
+        # Attorney City
+        city_spans = full_address_element.find_all('span')
+        attorney_city = ', '.join([x.text.strip() for x in city_spans[:2]])
+
+        # Attorney Phone
+        attorney_phone = attorney_data_div.find('dt', text=re.compile('Phone*')).findNext('dd').text
+
+        if not MuniCourtCrawler.is_int(attorney_phone.replace('(', '').replace(')','').replace('-','').replace(' ','')):
+            attorney_phone = ''
+
+        return attorney_name, attorney_address, attorney_city, attorney_phone
+    
+    @staticmethod
+    def process_event_data(soup):
+        all_event_data = []
+
+        events_table = soup.find('h4', text='Events').parent.parent.table
+        events = events_table.find('tbody').find_all('tr')
+        for event in events:
+            fields = event.find_all('td')
+
+            event_data = {
+                'Event Date': fields[0].text,
+                'Event Type': fields[2].text,
+                'Event Result': fields[3].text
+            }
+
+            all_event_data.append(event_data)
+        
+        return all_event_data
+    
+
+    @staticmethod
+    def process_docket_data(soup):
+        all_docket_data = []
+
+        docket_table = soup.find('h4', text='Docket Information').parent.parent.table
+        docket_items = docket_table.find('tbody').find_all('tr')
+        for docket_item in docket_items:
+            fields = docket_item.find_all('td')
+
+            docket_data = {
+                'Docket Item Date': fields[0].text,
+                'Docket Item Text': fields[1].text,
+                'Docket Item Amount Owed': fields[2].text
+            }
+
+            all_docket_data.append(docket_data)
+        
+        return all_docket_data
+        
 
     @staticmethod
     def is_int(a):

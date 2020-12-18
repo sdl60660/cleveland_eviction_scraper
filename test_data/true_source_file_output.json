@@ -1,0 +1,27 @@
+{
+    "Case Name": "2020 CVG 010174 TRACEY, CYNTHIA -VS- FRAGUA, MARY et al ADMINH",
+    "Case Number": "2020 CVG 010174",
+    "Case Status": "OPEN",
+    "File Date": "11/10/2020",
+    "Action": "EVICTION - 1 DEFENDANT",
+    "Party Information": {
+      "Plaintiff": {
+        "Name": "TRACEY, CYNTHIA",
+        "Address": {
+          "Street Address": "1225 MOORE RD",
+          "City": "Avon, OH"
+        }
+      },
+      "Defendant(s)": {
+        "Name(s)": "FRAGUA, MARY",
+        "Address": {
+          "Street Address": "4144 HYDE UPSTAIRS",
+          "City": "Cleveland, OH"
+        }
+      }
+    },
+    "Property Address": {
+      "Street Address": "4144 HYDE UPSTAIRS",
+      "City": "Cleveland, OH"
+    }
+  }

@@ -6,6 +6,9 @@ import sys
 import os
 
 
+ERROR_FILE_CONTENT = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body></body></html>'
+
+
 def main(page_source_directory, outfile_path):	
     crawler = MuniCourtCrawler(outfile_path, headless=True)
     
@@ -13,12 +16,21 @@ def main(page_source_directory, outfile_path):
         crawler.outfile_format = 'json'
         crawler.set_case_dict()
     
-    for html_file in os.listdir(page_source_directory):
-        print(html_file)
+    errors = []
+    
+    for i, html_file in enumerate(os.listdir(page_source_directory)):
+        if not html_file.endswith('.html'):
+            continue
+
+        print(i, html_file)
 
         # Open Existing Scraped HTML File
-        with open((page_source_directory.strip('/') + '/' + html_file)) as f:
+        with open((page_source_directory.strip('/') + '/' + html_file), 'r') as f:
             file_data = f.read()
+
+            if str(file_data) == ERROR_FILE_CONTENT:
+                errors.append(html_file.strip('.html'))
+                continue
 
             # Parse File
             data_dict = crawler.parse_data(page_source=file_data)
@@ -26,8 +38,12 @@ def main(page_source_directory, outfile_path):
             # Store Date
             crawler.store_data(data_dict, dump_source_file=False)
     
-    if os.path.splitext(outfile_path)[1] == '.json':
+    if crawler.outfile_format == "json":
         crawler.dump_case_dict()
+    
+    print('Error list:', errors)
+    
+    crawler.quit()
 
 
 if __name__ == "__main__":
