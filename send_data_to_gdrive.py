@@ -1,6 +1,6 @@
 from __future__ import print_function
 import pickle
-import os.path
+import os
 
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -134,35 +134,36 @@ def get_year_data(basefile, select_year):
     
     return out_filename
 
+def upload_or_update_file(service, local_filepath, parent_foldername):
+    drive_filename = local_filepath.split('/')[-1]
+    try:
+        file_id = get_file_id_with_name(service, file_name=drive_filename, parent_foldername=parent_foldername)
+        update_file(service, local_filepath=local_filepath, drive_filename=drive_filename, file_id=file_id)
+    except IndexError:
+        upload_file(service, local_filepath=local_filepath, drive_filename=drive_filename, drive_foldername=parent_foldername)
+
+
 
 def main():
     creds = get_credentials()
     service = build('drive', 'v3', credentials=creds)
 
     # Upload/Update Full Files
-    for filepath in ['data/full_data.csv', 'data/full_data.json']:
-        drive_filename = filepath.split('/')[-1]
+    for local_filepath in ['data/full_data.csv', 'data/full_data.json']:
+        upload_or_update_file(service, local_filepath, parent_foldername='Full Data (since 2011)')
 
-        # Turn this into a decorator function?
-        try:
-            file_id = get_file_id_with_name(service, file_name=drive_filename, parent_foldername='Full Data (since 2011)')
-            update_file(service, local_filepath=filepath, drive_filename=drive_filename, file_id=file_id)
-        except IndexError:
-            upload_file(service, local_filepath=filepath, drive_filename=drive_filename, drive_foldername='Full Data (since 2011)')
-        
-        
     # Upload/Update Annual Files
     start_year, end_year = get_year_range('data/full_data.csv')
     for year in range(start_year, end_year+1):
         for basefile in ['data/full_data.csv', 'data/full_data.json']:
             local_filepath = get_year_data(basefile, year)
-            drive_filename = local_filepath.split('/')[-1]
-            
-            try:
-                file_id = get_file_id_with_name(service, file_name=drive_filename, parent_foldername='Yearly Data')
-                update_file(service, local_filepath=local_filepath, drive_filename=drive_filename, file_id=file_id)
-            except IndexError:
-                upload_file(service, local_filepath=local_filepath, drive_filename=drive_filename, drive_foldername='Yearly Data')
+            upload_or_update_file(service, local_filepath, parent_foldername='Yearly Data')
+            os.remove(local_filepath)
+
+    # Upload latest update file (either by taking time off of filename and using today's date or finding latest with os)
+
+    
+
 
 if __name__ == '__main__':
     main()
