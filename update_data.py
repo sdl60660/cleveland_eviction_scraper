@@ -45,7 +45,7 @@ def main(existing_data_path, outfile_path):
 	end_date = datetime.today()
 
 	# Run a date range call from the scrape_date_range file and save into output file, which will then be updated with
-	# scrape_date_range.date_range_crawl(start_date, end_date, outfile_path)
+	scrape_date_range.date_range_crawl(start_date, end_date, outfile_path)
 
 	# Run over all dates with open/re-open cases with a date search (this is faster than search each case by case number)
 	for case_status in ['OPEN', 'REOPEN (RO)']:
