@@ -58,6 +58,7 @@ def test_general_date_crawler_json():
     
     os.remove(test_file)
     assert len(data) == 53
+    
 
 def test_general_date_crawler_csv():
     start_date = datetime.strptime('01/14/2011', '%m/%d/%Y')

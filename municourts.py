@@ -202,13 +202,20 @@ class MuniCourtCrawler():
             time.sleep(0.3)
 
     
-    def fill_dates_and_press(self, date_string):
+    def fill_dates_and_press(self, date, end_date=None):
+        date_string = datetime.strftime(date, '%m/%d/%Y')
+        print(date_string)
+
         # Fill Start Date box
         self.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:beginDate"]', text=date_string)
         time.sleep(0.2)
 
         # Fill End Date box
-        self.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:endDate"]', text=date_string)
+        if end_date:
+            end_date_string = datetime.strftime(end_date, '%m/%d/%Y')
+            self.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:endDate"]', text=end_date_string)
+        else:
+            self.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:endDate"]', text=date_string)
 
         # Press Submit button
         self.click_button_xpath(button_xpath='//*[@name="submitLink"]')
@@ -235,8 +242,8 @@ class MuniCourtCrawler():
         
         # For each case element
         for row_num in range(rows):
-            # try:
             row = self.get_table_row((row_num+1))
+            
             # Follow case link
             row.click()
 
@@ -246,9 +253,19 @@ class MuniCourtCrawler():
 
             # Go back to previous page with other case elements
             self.back_page()
-            # except Exception as e:
-            #     time.sleep(1)
-            #     print(e)
+
+
+    def search_dates(self, start_date, end_date, status_filter=None):
+        current_page_index = 1
+        
+        while True:
+            self.enter_site()
+            self.navigate_to_search_menu("Case Type Search")
+            num_pages, current_page_index = self.search_date_page(date, current_page_index, status_filter, to_date=end_date)
+            if current_page_index == num_pages:
+                return
+            else:
+                current_page_index += 1
 
 
     def search_date(self, date, status_filter=None):
@@ -264,7 +281,7 @@ class MuniCourtCrawler():
                 current_page_index += 1
 
 
-    def search_date_page(self, date, current_page_index=1, status_filter=None):
+    def search_date_page(self, date, current_page_index=1, status_filter=None, to_date=None):
         # IMPORTANT: Can only run starting from "Case Type Search" menu (will return to this menu at function end)
         
         # If not search menu page, throw error and exit
@@ -274,15 +291,12 @@ class MuniCourtCrawler():
         if 'selected' not in self.driver.find_element_by_xpath('//span[text()="Case Type Search"]/ancestor::li').get_attribute("class"):
             raise RuntimeError("The search_date method can only be run from the 'Case Type Search' tab. Crawler must be navigated to that tab before running (using 'navigate_to_search_menu)")
 
-        date_string = datetime.strftime(date, '%m/%d/%Y')
-        print(date_string)
-
         self.set_search_options(status_filter)
-        self.fill_dates_and_press(date_string)
+        self.fill_dates_and_press(date, end_date=to_date)
         
         while self.is_element_on_page('//span[@class="feedbackPanelERROR"]'):
             self.set_search_options(status_filter)
-            self.fill_dates_and_press(date_string)
+            self.fill_dates_and_press(date, end_date=to_date)
             # errors = self.driver.find_elements_by_xpath('//span[@class="feedbackPanelERROR"]')
 
         num_pages = self.get_num_results_pages()
@@ -513,6 +527,9 @@ class MuniCourtCrawler():
             prayer_amount_row = additional_fields_box.find('dt', text=re.compile("PRAYER AMOUNT*"))
             if prayer_amount_row:
                 data_dict['Prayer Amount'] = prayer_amount_row.findNext('dd').text
+        
+        # Last Updated Time Stamp
+        data_dict['Last Updated'] = datetime.strftime(datetime.today(), '%m/%d/%Y')
 
         return data_dict
 
@@ -563,7 +580,7 @@ class MuniCourtCrawler():
                     'Plaintiff City', 'Costs', 'Disposition Status', 'Disposition Date', 'Defendant Alias',
                     'Plaintiff Alias', 'Defendant Attorney', 'Defendant Attorney Address', 'Defendant Attorney City',
                     'Defendant Attorney Phone', 'Plaintiff Attorney', 'Plaintiff Attorney Address', 
-                    'Plaintiff Attorney City', 'Plaintiff Attorney Phone', 'Prayer Amount']
+                    'Plaintiff Attorney City', 'Plaintiff Attorney Phone', 'Prayer Amount', 'Last Updated']
 
         if os.path.isfile(self.outfile) == False:
             with open(self.outfile, 'w') as f:
@@ -628,7 +645,8 @@ class MuniCourtCrawler():
                 'Disposition Status': data_dictionary['Disposition Status'],
                 'Disposition Date': data_dictionary['Disposition Date']
             },
-            'Total Costs': data_dictionary['Costs']
+            'Total Costs': data_dictionary['Costs'],
+            'Last Updated': data_dictionary['Last Updated']
         }
         
         self.case_dict[data_dictionary['Case Number']] = output_json

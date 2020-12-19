@@ -12,9 +12,9 @@ ALL_CSV_FIELDS = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Actio
             'Plaintiff City', 'Costs', 'Disposition Status', 'Disposition Date', 'Defendant Alias',
             'Plaintiff Alias', 'Defendant Attorney', 'Defendant Attorney Address', 'Defendant Attorney City',
             'Defendant Attorney Phone', 'Plaintiff Attorney', 'Plaintiff Attorney Address', 
-            'Plaintiff Attorney City', 'Plaintiff Attorney Phone', 'Prayer Amount']
+            'Plaintiff Attorney City', 'Plaintiff Attorney Phone', 'Prayer Amount', 'Last Updated']
 
-TOP_LEVEL_FIELDS = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action', 'Prayer Amount']
+TOP_LEVEL_FIELDS = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action', 'Prayer Amount', 'Last Updated']
 
 def flatten_record(record_dict):
     flat_record = {}
