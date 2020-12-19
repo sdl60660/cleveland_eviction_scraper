@@ -1,0 +1,14 @@
+.idea
+__pycache__
+.pytest_cache
+
+page_source_files
+
+captcha_key.txt
+long_days.txt
+
+credentials
+send_data_to_s3.py
+
+data/full_data.json
+data/upload_data/*

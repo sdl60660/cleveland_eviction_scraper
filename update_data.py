@@ -118,7 +118,7 @@ if __name__ == "__main__":
 		outfile_path = sys.argv[2]
 	except IndexError:
 		file_extension = os.path.splitext(existing_data_path)[1]
-		date_string = datetime.strftime(datetime.now(), '%m-%d-%Y %H:%M')
+		date_string = datetime.strftime(datetime.now(), '%m-%d-%Y')
 
 		outfile_path = f'data/updates/data_update_({date_string}){file_extension}'
 	
