@@ -2,7 +2,7 @@
 from municourts import MuniCourtCrawler, create_page_source_directories
 
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import sys
 import os
 
@@ -11,14 +11,12 @@ def date_range_crawl(start_date, end_date, outfile_path):
 	crawler = MuniCourtCrawler(outfile_path, headless=True)
 	
 	date = start_date
-	current_page_index = 1
 	error_count = 0
 
 	while date.date() != end_date.date():
 		try:
-			crawler.enter_site()
-			crawler.navigate_to_search_menu("Case Type Search")
-			date, current_page_index = crawler.search_date(date, current_page_index)
+			crawler.search_date(date, status_filter=None)
+			date += timedelta(days=1)
 		except:
 			print('Date Search Error')
 			error_count += 1

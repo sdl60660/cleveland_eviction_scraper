@@ -21,24 +21,23 @@ def get_data_array(datafile):
 	return data
 
 
-def parse_existing_data(existing_data_path):
-	data = get_data_array(existing_data_path)
-	
-	open_case_numbers = [x['Case Number'] for x in data if x['Case Status'] == 'OPEN']
-	
+def parse_existing_data(data):
 	case_dates = [x['File Date'] for x in data]
 	last_date = max(case_dates, key=lambda x: datetime.strptime(x, '%m/%d/%Y'))
 
-	return open_case_numbers, last_date
+	return last_date
 
 
 def main(existing_data_path, outfile_path):
 	if os.path.splitext(existing_data_path)[1] != os.path.splitext(outfile_path)[1]:
 		raise ValueError("Data may output in either CSV or JSON, but the format of the existing datafile and the output file must match. You've provided different file types.")
 
-	# Get array of all open cases (to update) and find last date in existing data (for start date of new data)
-	open_cases, file_end_date = parse_existing_data(existing_data_path)
-	print(len(open_cases), file_end_date)
+	# Parse file, regardless of format, and return data array
+	data = get_data_array(existing_data_path)
+
+	# Find last date in existing data (for start date of new data)
+	file_end_date = parse_existing_data(data)
+	print(file_end_date)
 
 	# Start gathering new data from ten days before last day in existing data, since cases seem to sometimes be added
 	# retroactively (not usually this far back, but better to be safe). End date is just today.
@@ -46,28 +45,37 @@ def main(existing_data_path, outfile_path):
 	end_date = datetime.today()
 
 	# Run a date range call from the scrape_date_range file and save into output file, which will then be updated with
-	scrape_date_range.date_range_crawl(start_date, end_date, outfile_path)
+	# scrape_date_range.date_range_crawl(start_date, end_date, outfile_path)
 
-	# Start up new crawler to pull updated data on all cases that were open on last update
-	crawler = MuniCourtCrawler(outfile_path, headless=True)
-	crawler.enter_site()
+	# Run over all dates with open/re-open cases with a date search (this is faster than search each case by case number)
+	for case_status in ['OPEN', 'REOPEN (RO)']:
+		
+		# Get array of all open/re-opened cases (to update)
+		open_cases = [x for x in data if x['Case Status'] == case_status]
+		case_numbers = [x['Case Number'] for x in open_cases]
 
-	error_count = 0
-	for i, case_number in enumerate(open_cases):
-		print(i, case_number)
+		case_dates = list(set([x['File Date'] for x in open_cases]))
+		case_dates.sort(key=lambda x: datetime.strptime(x, '%m/%d/%Y'))
 
-		try:
-			crawler.navigate_to_search_menu("Case Number Search")
-			crawler.search_case_number(case_number)
-		except:
-			print('Case Number Search Error')
-			error_count += 1
+		print(case_status, len(open_cases), len(case_dates))
 
-			time.sleep(2)
-			crawler.enter_site()
+		# Start up new crawler to pull updated data on all cases that were open on last update
+		crawler = MuniCourtCrawler(outfile_path, headless=True)		
+		error_count = 0
+
+		for date in case_dates:
+			date_object = datetime.strptime(date, '%m/%d/%Y')
+
+			try:
+				crawler.search_date(date_object, status_filter=case_status)
+			except:
+				print('Date Search Error')
+				error_count += 1
+				time.sleep(2)
 			
-		if error_count > 5: 
-			break
+			if error_count > 5: 
+				break
+
 	
 	# The dump_case_dict() method will automatically concatenate with existing file, meaning this is automatically incorporating
 	# data from the date crawl at the beginning. If data format is CSV, it's appending by default, so the same thing applies.

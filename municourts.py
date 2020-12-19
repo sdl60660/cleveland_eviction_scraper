@@ -14,6 +14,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from selenium.common.exceptions import NoSuchElementException
@@ -174,26 +175,32 @@ class MuniCourtCrawler():
             json.dump(case_array, f)
 
 
-    def set_search_options(self):
-        time.sleep(0.5)
+    def set_search_options(self, status_filter=None):
+        time.sleep(0.3)
 
         # Hard-coded selection for 'Number of Results'
-        self.click_button_xpath(button_xpath='//*[@name="bodyLayout:topSearchPanel:pageSize"]/option[@value="2"]')
+        select = Select(self.driver.find_element_by_xpath('//*[@name="bodyLayout:topSearchPanel:pageSize"]'))
+        select.select_by_visible_text("40")
+        time.sleep(0.3)
+        
         # Hard-coded selection for 'Case Type': "CVG - LANDLORD/TENANT" (Pre-select, this needs to be "clicked" twice)
-        self.click_button_xpath(button_xpath='//*[@name="caseCd"]/option[7]')
-
-        # tracker.click_button_xpath(button_xpath='//*[@name="ptyCd"]/option[12]')
-        # tracker.click_button_xpath(button_xpath='//*[@id="id22"]/option[@value="2"]')
-        time.sleep(0.5)
-
-        # Hard-coded selection for 'Case Type': "CVG - LANDLORD/TENANT"
-        self.click_button_xpath(button_xpath='//*[@name="caseCd"]/option[7]')
+        select = Select(self.driver.find_element_by_xpath('//*[@name="caseCd"]'))
+        select.deselect_all()
+        select.select_by_visible_text("CVG  -  LANDLORD/TENANT")
+        time.sleep(0.3)
 
         # Hard-coded selection for 'Party Type'
-        for x in range(2):
-            self.scroll_to_element(element_xpath='//*[@name="ptyCd"]/option[12]')
-            time.sleep(0.5)
-    
+        for _ in range(2):
+            self.scroll_to_element(element_xpath='//*[@name="ptyCd"]/option[text()="PROPERTY ADDRESS"]')
+            time.sleep(0.3)
+        
+        # Select 'Case Status' if a status_filter is set
+        if status_filter:
+            select = Select(self.driver.find_element_by_xpath('//*[@name="statCd"]'))
+            select.deselect_all()
+            select.select_by_visible_text(status_filter)
+            time.sleep(0.3)
+
     
     def fill_dates_and_press(self, date_string):
         # Fill Start Date box
@@ -244,7 +251,20 @@ class MuniCourtCrawler():
             #     print(e)
 
 
-    def search_date(self, date, current_page_index):
+    def search_date(self, date, status_filter=None):
+        current_page_index = 1
+        
+        while True:
+            self.enter_site()
+            self.navigate_to_search_menu("Case Type Search")
+            num_pages, current_page_index = self.search_date_page(date, current_page_index, status_filter)
+            if current_page_index == num_pages:
+                return
+            else:
+                current_page_index += 1
+
+
+    def search_date_page(self, date, current_page_index=1, status_filter=None):
         # IMPORTANT: Can only run starting from "Case Type Search" menu (will return to this menu at function end)
         
         # If not search menu page, throw error and exit
@@ -257,11 +277,11 @@ class MuniCourtCrawler():
         date_string = datetime.strftime(date, '%m/%d/%Y')
         print(date_string)
 
-        self.set_search_options()
+        self.set_search_options(status_filter)
         self.fill_dates_and_press(date_string)
         
         while self.is_element_on_page('//span[@class="feedbackPanelERROR"]'):
-            self.set_search_options()
+            self.set_search_options(status_filter)
             self.fill_dates_and_press(date_string)
             # errors = self.driver.find_elements_by_xpath('//span[@class="feedbackPanelERROR"]')
 
@@ -275,19 +295,7 @@ class MuniCourtCrawler():
         
         self.scrape_page_results(current_page_index)
 
-        # Try to return to search page and increment date
-        # If the site sends us back to the welcome page, which seems to happen after a lot of quick scraping, re-enter with 'Click Here' button
-        # self.click_button_name(button_name="Search")
-        # if self.is_element_on_page(element_xpath='//span[text()="Click Here"]'):
-        #     self.click_button_name(button_name="Click Here")
-
-        if current_page_index == num_pages:
-            date += timedelta(days=1)
-            current_page_index = 1
-        else:
-            current_page_index += 1
-
-        return date, current_page_index
+        return num_pages, current_page_index
 
 
     def search_case_number(self, case_number):
