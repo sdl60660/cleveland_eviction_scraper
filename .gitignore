@@ -12,5 +12,3 @@ send_data_to_s3.py
 
 data/full_data.json
 data/upload_data/*
-
-run_full_update.sh
