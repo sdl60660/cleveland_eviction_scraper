@@ -76,12 +76,13 @@ def main(existing_data_path, outfile_path):
 			if error_count > 5: 
 				break
 
-	
-	# The dump_case_dict() method will automatically concatenate with existing file, meaning this is automatically incorporating
-	# data from the date crawl at the beginning. If data format is CSV, it's appending by default, so the same thing applies.
-	if crawler.outfile_format == "json":
-		crawler.dump_case_dict()
+		# The dump_case_dict() method will automatically concatenate with existing file, meaning this is automatically incorporating
+		# data from the date crawl at the beginning. If data format is CSV, it's appending by default, so the same thing applies.
+		if crawler.outfile_format == "json":
+			crawler.dump_case_dict()
 
+
+	if crawler.outfile_format == "json":
 		# Update the existing full datafile with new/updated data
 		new_updated_data = { x['Case Number']: x for x in get_data_array(outfile_path) }
 		existing_data = { x['Case Number']: x for x in get_data_array(existing_data_path) }
@@ -89,7 +90,6 @@ def main(existing_data_path, outfile_path):
 		# (Use in future, when whole project is kosher for python 3.9+)
 		# existing_data |= new_updated_data
 		existing_data.update(new_updated_data)
-
 		
 		with open(existing_data_path, 'w') as f:
 			json.dump(list(existing_data.values()), f)

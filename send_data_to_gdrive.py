@@ -10,6 +10,8 @@ from googleapiclient.errors import HttpError
 
 from credentials.google_drive_config import hard_coded_folder_ids
 
+from convert_json_records_to_csv import convert_to_csv
+
 import csv
 import json
 from datetime import datetime
@@ -161,8 +163,12 @@ def main():
             os.remove(local_filepath)
 
     # Upload latest update file (either by taking time off of filename and using today's date or finding latest with os)
-
+    update_files = [f'data/updates/{x}' for x in os.listdir('data/updates/') if '.json' in x]
+    latest_file = max(update_files, key=os.path.getctime)
     
+    convert_to_csv(latest_file, latest_file.replace('.json', '.csv'))
+    for local_filepath in [latest_file, latest_file.replace('.json', '.csv')]:
+        upload_or_update_file(service, local_filepath=local_filepath, parent_foldername='Weekly Update Data (New/Updated Records)')
 
 
 if __name__ == '__main__':

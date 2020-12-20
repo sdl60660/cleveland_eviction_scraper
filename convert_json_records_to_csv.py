@@ -51,7 +51,7 @@ def flatten_record(record_dict):
     return flat_record
 
 
-def main(infile, outfile):
+def convert_to_csv(infile, outfile):
 
     # Load JSON data
     with open(infile, 'r') as f:
@@ -88,4 +88,4 @@ if __name__ == "__main__":
     if os.path.splitext(infile)[1] != '.json' or os.path.splitext(outfile)[1] != '.csv':
         raise ValueError("Input datafile must be a JSON file and output datafile mut be a CSV file")
 
-    main(infile, outfile)
+    convert_to_csv(infile, outfile)
