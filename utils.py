@@ -1,6 +1,9 @@
 
 import os
 import json
+import csv
+from datetime import datetime
+from collections import OrderedDict, Counter
 
 
 # Comes from here: https://stackoverflow.com/questions/18857352/remove-very-last-character-in-file
@@ -55,3 +58,26 @@ def close_off_json(filepath):
     with open(filepath, 'a') as f:
         f.write(']')
 
+
+def get_year_range(infile):
+    if os.path.splitext(infile)[1] == '.json':
+        with open(infile, 'r') as f:
+            all_data = json.load(f)
+    else: 
+        with open(infile, 'r') as f:
+            all_data = [x for x in csv.DictReader(f)]
+
+    file_dates = sorted([datetime.strptime(x['File Date'], '%m/%d/%Y') for x in all_data])
+    start_year = int(file_dates[0].year)
+    end_year = int(file_dates[-1].year)
+    
+    return start_year, end_year
+
+class OrderedCounter(Counter, OrderedDict):
+    'Counter that remembers the order elements are first encountered'
+
+    def __repr__(self):
+        return '%s(%r)' % (self.__class__.__name__, OrderedDict(self))
+
+    def __reduce__(self):
+        return self.__class__, (OrderedDict(self),)

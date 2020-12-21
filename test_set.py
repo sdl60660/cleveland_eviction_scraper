@@ -29,7 +29,6 @@ def test_enter_site_solve_captcha():
     assert crawler.is_element_on_page('//div[@class="sectionHeader"]/h2[text()="Search"]')
 
 
-
 def test_parser():
     test_fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action', 'Property Address']
     crawler = MuniCourtCrawler(output_file='test_data/dummy_file.json', headless=True)

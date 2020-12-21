@@ -11,6 +11,7 @@ from googleapiclient.errors import HttpError
 from credentials.google_drive_config import hard_coded_folder_ids
 
 from convert_json_records_to_csv import convert_to_csv
+from utils import get_year_range
 
 import csv
 import json
@@ -95,17 +96,6 @@ def get_mime_type(filepath):
         return 'text/csv'
 
 
-def get_year_range(in_csv):
-    with open(in_csv, 'r') as f:
-        all_data = [x for x in csv.DictReader(f)]
-
-        file_dates = sorted([datetime.strptime(x['File Date'], '%m/%d/%Y') for x in all_data])
-        start_year = int(file_dates[0].year)
-        end_year = int(file_dates[-1].year)
-    
-    return start_year, end_year
-
-
 def get_year_data(basefile, select_year):
     if os.path.splitext(basefile)[1] == '.json':
         json_input = True
@@ -136,6 +126,7 @@ def get_year_data(basefile, select_year):
     
     return out_filename
 
+
 def upload_or_update_file(service, local_filepath, parent_foldername):
     drive_filename = local_filepath.split('/')[-1]
     try:
@@ -143,7 +134,6 @@ def upload_or_update_file(service, local_filepath, parent_foldername):
         update_file(service, local_filepath=local_filepath, drive_filename=drive_filename, file_id=file_id)
     except IndexError:
         upload_file(service, local_filepath=local_filepath, drive_filename=drive_filename, drive_foldername=parent_foldername)
-
 
 
 def main():
@@ -169,6 +159,7 @@ def main():
     convert_to_csv(latest_file, latest_file.replace('.json', '.csv'))
     for local_filepath in [latest_file, latest_file.replace('.json', '.csv')]:
         upload_or_update_file(service, local_filepath=local_filepath, parent_foldername='Weekly Update Data (New/Updated Records)')
+        # os.remove(local_filepath)
 
 
 if __name__ == '__main__':

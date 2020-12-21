@@ -57,12 +57,12 @@ class MuniCourtCrawler():
             self.driver.add_cookie(cookie)
 
         # Click "I Accept" button on intial homepage
-        try:
-            self.click_button_name(button_name="   I Accept   ")
-        except:
-            time.sleep(4)
-            self.click_button_name(button_name="   I Accept   ")
-
+        for attempt in range(5):
+            try:
+                self.click_button_name(button_name="   I Accept   ")
+                break
+            except:
+                time.sleep(1)
 
         # If captcha, solve using anticaptcha
         try:
@@ -81,12 +81,12 @@ class MuniCourtCrawler():
             pass
 
         # Get to search page
-        for button in ["Click Here"]:
+        for attempt in range(5):
             try:
-                self.click_button_name(button_name=button)
+                self.click_button_name(button_name="Click Here")
+                break
             except:
-                time.sleep(4)
-                self.click_button_name(button_name=button)
+                time.sleep(1)
 
         pickle.dump(self.driver.get_cookies(), open("cookies.pkl","wb"))
         self.cookies = self.driver.get_cookies()
@@ -204,7 +204,12 @@ class MuniCourtCrawler():
     
     def fill_dates_and_press(self, date, end_date=None):
         date_string = datetime.strftime(date, '%m/%d/%Y')
-        print(date_string)
+        
+        if end_date:
+            end_date_string = datetime.strftime(end_date, '%m/%d/%Y')
+            print(f"{date_string} to {end_date_string}")
+        else:
+            print(date_string)
 
         # Fill Start Date box
         self.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:beginDate"]', text=date_string)
@@ -212,7 +217,6 @@ class MuniCourtCrawler():
 
         # Fill End Date box
         if end_date:
-            end_date_string = datetime.strftime(end_date, '%m/%d/%Y')
             self.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:endDate"]', text=end_date_string)
         else:
             self.fill_box(element_id=None, element_xpath='//*[@name="fileDateRange:endDate"]', text=date_string)
@@ -253,6 +257,7 @@ class MuniCourtCrawler():
 
             # Go back to previous page with other case elements
             self.back_page()
+            time.sleep(0.1)
 
 
     def search_dates(self, start_date, end_date, status_filter=None):
@@ -261,7 +266,7 @@ class MuniCourtCrawler():
         while True:
             self.enter_site()
             self.navigate_to_search_menu("Case Type Search")
-            num_pages, current_page_index = self.search_date_page(date, current_page_index, status_filter, to_date=end_date)
+            num_pages, current_page_index = self.search_date_page(start_date, current_page_index, status_filter, to_date=end_date)
             if current_page_index == num_pages:
                 return
             else:
@@ -552,17 +557,18 @@ class MuniCourtCrawler():
 
         try:
             # Keep record of scrape on specific date (as data will change)
-            with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
-                f.write(self.driver.page_source)
+            # with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
+            #     f.write(self.driver.page_source)
 
             # Add or replace to store of all files
             with open(f'page_source_files/all_data/{case_number}.html', 'w') as f:
                 f.write(self.driver.page_source)
 
         except FileNotFoundError:
-            os.mkdir(os.getcwd() + '/page_source_files/' + datetime.today().strftime('%Y%m%d'))
-            with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
-                f.write(self.driver.page_source)
+            print('Directory Error')
+            # os.mkdir(os.getcwd() + '/page_source_files/' + datetime.today().strftime('%Y%m%d'))
+            # with open(f'page_source_files/{date_string}/{case_number}.html', 'w') as f:
+            #     f.write(self.driver.page_source)
 
 
     def back_page(self):
@@ -759,10 +765,10 @@ def create_page_source_directories():
         pass
 
     # Create directory (if it doesn't exist) within page_source_files to store this day's raw source files (as they may change over time)
-    try:
-        os.mkdir(os.getcwd() + '/page_source_files/' + datetime.today().strftime('%Y%m%d'))
-    except FileExistsError:
-        pass
+    # try:
+    #     os.mkdir(os.getcwd() + '/page_source_files/' + datetime.today().strftime('%Y%m%d'))
+    # except FileExistsError:
+    #     pass
 
     # Create directory (if it doesn't exist) within page_source_files to store all most up-to-date source files for given cases
     try:
