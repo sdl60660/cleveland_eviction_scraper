@@ -15,11 +15,11 @@ def date_range_crawl(start_date, end_date, outfile_path):
 		for attempt in range(3):
 			try:
 				crawler.search_date(date, status_filter=None)
-				date += timedelta(days=1)
 				break
 			except:
-				print('Date Search Error on attempt {}'.format(attempt))
+				print(f'Date Search Error on attempt {attempt+1}')
 				time.sleep(2)
+		date += timedelta(days=1)
 	
 	if crawler.outfile_format == "json":
 		crawler.dump_case_dict()
