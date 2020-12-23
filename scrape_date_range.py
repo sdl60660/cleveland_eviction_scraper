@@ -9,21 +9,17 @@ import os
 
 def date_range_crawl(start_date, end_date, outfile_path):	
 	crawler = MuniCourtCrawler(outfile_path, headless=True)
-	
 	date = start_date
-	error_count = 0
 
 	while date.date() != end_date.date():
-		try:
-			crawler.search_date(date, status_filter=None)
-			date += timedelta(days=1)
-		except:
-			print('Date Search Error')
-			error_count += 1
-			time.sleep(2)
-		
-		if error_count > 5: 
-			break
+		for attempt in range(3):
+			try:
+				crawler.search_date(date, status_filter=None)
+				date += timedelta(days=1)
+				break
+			except:
+				print('Date Search Error on attempt {}'.format(attempt))
+				time.sleep(2)
 	
 	if crawler.outfile_format == "json":
 		crawler.dump_case_dict()

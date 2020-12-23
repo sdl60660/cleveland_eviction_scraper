@@ -275,7 +275,7 @@ class MuniCourtCrawler():
                     self.navigate_to_search_menu("Case Type Search")
                     break
                 except ValueError:
-                    pass
+                    time.sleep(1)
             num_pages, current_page_index = self.search_date_page(start_date, current_page_index, status_filter, to_date=end_date)
             if current_page_index == num_pages:
                 return
@@ -294,7 +294,7 @@ class MuniCourtCrawler():
                     self.navigate_to_search_menu("Case Type Search")
                     break
                 except ValueError:
-                    pass            
+                    time.sleep(1)            
             num_pages, current_page_index = self.search_date_page(date, current_page_index, status_filter)
             if current_page_index == num_pages:
                 return
