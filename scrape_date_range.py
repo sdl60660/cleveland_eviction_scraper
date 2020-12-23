@@ -8,7 +8,7 @@ import os
 
 
 def date_range_crawl(start_date, end_date, outfile_path):	
-	crawler = MuniCourtCrawler(outfile_path, headless=True)
+	crawler = MuniCourtCrawler(outfile_path, headless=False)
 	date = start_date
 
 	while date.date() != end_date.date():
