@@ -14,3 +14,6 @@ data/full_data.json
 data/upload_data/*
 
 run_full_update.sh
+
+cookies.pkl
+captcha.png

@@ -30,13 +30,13 @@ class MuniCourtCrawler():
 
     def __init__(self, output_file, headless=True):
         chrome_options = webdriver.ChromeOptions()
-        # chrome_options.add_argument('--no-sandbox')
-        if headless:
-            chrome_options.add_argument('--headless')
+
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument("enable-automation")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
+        if headless:
+            chrome_options.add_argument('--headless')
         
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.implicitly_wait(8)
@@ -269,7 +269,13 @@ class MuniCourtCrawler():
         
         while True:
             self.enter_site()
-            self.navigate_to_search_menu("Case Type Search")
+            time.sleep(1)
+            for attempt in range(3):
+                try:
+                    self.navigate_to_search_menu("Case Type Search")
+                    break
+                except ValueError:
+                    pass
             num_pages, current_page_index = self.search_date_page(start_date, current_page_index, status_filter, to_date=end_date)
             if current_page_index == num_pages:
                 return
@@ -282,7 +288,13 @@ class MuniCourtCrawler():
         
         while True:
             self.enter_site()
-            self.navigate_to_search_menu("Case Type Search")
+            time.sleep(1)
+            for attempt in range(3):
+                try:
+                    self.navigate_to_search_menu("Case Type Search")
+                    break
+                except ValueError:
+                    pass            
             num_pages, current_page_index = self.search_date_page(date, current_page_index, status_filter)
             if current_page_index == num_pages:
                 return

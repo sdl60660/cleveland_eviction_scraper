@@ -7,4 +7,3 @@ python convert_json_records_to_csv.py data/full_data.json data/full_data.csv
 
 # Upload/update full data files, annual data files, update file in Drive folder
 python send_data_to_gdrive.py
-
