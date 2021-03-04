@@ -476,9 +476,14 @@ class MuniCourtCrawler():
             if text.split(' - ')[-1] == 'DEFENDANT':
                 defendants.append(text.split(' - ')[0])
 
+                try:
+                    data_dict['Defendant Address'], data_dict['Defendant City'], data_dict['Defendant Zipcode'] = MuniCourtCrawler.get_address_info(row)
+                except:
+                    data_dict['Defendant Address'], data_dict['Defendant City'], data_dict['Defendant Zipcode']  = 'Address Error', 'Address Error', ''
+
                 # Get Attorney Info
                 data_dict['Defendant Attorney'], data_dict['Defendant Attorney Address'], \
-                data_dict['Defendant Attorney City'], data_dict['Defendant Attorney Phone'] = MuniCourtCrawler.get_attorney_info(row)
+                data_dict['Defendant Attorney City'], data_dict['Defendant Attorney Phone'], data_dict['Defendant Attorney Zipcode'] = MuniCourtCrawler.get_attorney_info(row)
 
                 if row.find('h5', text="Alias").parent.find('dd', attrs={'class': 'ptyAfflName'}):
                     data_dict['Defendant Alias'] = row.find('h5', text="Alias").parent.find('dd', attrs={'class': 'ptyAfflName'}).text
@@ -486,24 +491,27 @@ class MuniCourtCrawler():
             elif text.split(' - ')[-1] == 'PLAINTIFF':
                 plaintiffs.append(text.split(' - ')[0])
                 try:
-                    data_dict['Plaintiff Address'], data_dict['Plaintiff City'] = MuniCourtCrawler.get_address_info(row)
+                    data_dict['Plaintiff Address'], data_dict['Plaintiff City'], data_dict['Plaintiff Zipcode'] = MuniCourtCrawler.get_address_info(row)
                 except:
-                    data_dict['Plaintiff Address'], data_dict['Plaintiff City'] = 'Address Error', 'Address Error'
+                    data_dict['Plaintiff Address'], data_dict['Plaintiff City'], data_dict['Plaintiff Zipcode']  = 'Address Error', 'Address Error', ''
                 
                 # Get Attorney Info
                 data_dict['Plaintiff Attorney'], data_dict['Plaintiff Attorney Address'], \
-                data_dict['Plaintiff Attorney City'], data_dict['Plaintiff Attorney Phone'] = MuniCourtCrawler.get_attorney_info(row)
+                data_dict['Plaintiff Attorney City'], data_dict['Plaintiff Attorney Phone'], data_dict['Plaintiff Attorney Zipcode'] = MuniCourtCrawler.get_attorney_info(row)
 
                 if row.find('h5', text="Alias").parent.find('dd', attrs={'class': 'ptyAfflName'}):
                     data_dict['Plaintiff Alias'] = row.find('h5', text="Alias").parent.find('dd', attrs={'class': 'ptyAfflName'}).text
 
             elif text.split(' - ')[-1] == 'PROPERTY ADDRESS':
                 try:
-                    data_dict['Property Address'], data_dict['Property City'] = MuniCourtCrawler.get_address_info(row)
+                    data_dict['Property Address'], data_dict['Property City'], data_dict['Property Zipcode'] = MuniCourtCrawler.get_address_info(row)
                 except:
-                    data_dict['Property Address'], data_dict['Property City'] = 'Address Error', 'Address Error'
+                    data_dict['Property Address'], data_dict['Property City'], data_dict['Property Zipcode'] = 'Address Error', 'Address Error', ''
 
-        for field in ['Property Address', 'Property City', 'Plaintiff Address', 'Plaintiff City']:
+        for field in [  'Property Address', 'Property City', 'Property Zipcode', 'Plaintiff Address',
+                        'Plaintiff City', 'Plaintiff Zipcode', 'Defendant Address', 'Defendant City',
+                        'Defendant Zipcode', 'Plaintiff Attorney', 'Plaintiff Attorney Address', 'Plaintiff Attorney City',
+                        'Plaintiff Attorney Phone', 'Plaintiff Attorney Zipcode']:
             if field not in data_dict.keys():
                 data_dict[field] = 'MISSING FROM RECORD'
         
@@ -588,11 +596,12 @@ class MuniCourtCrawler():
     def write_to_csv(self, data_dictionary):
         # If output file doesn't exist yet, create and add header. Otherwise, we're appending to an existing file
         csv_fields = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
-                    'Defendants', 'Property Address', 'Property City', 'Plaintiff', 'Plaintiff Address',
-                    'Plaintiff City', 'Costs', 'Disposition Status', 'Disposition Date', 'Defendant Alias',
-                    'Plaintiff Alias', 'Defendant Attorney', 'Defendant Attorney Address', 'Defendant Attorney City',
+                    'Defendants', 'Defendant Address', 'Defendant City', 'Defendant Zipcode', 'Property Address', 'Property City',
+                    'Property Zipcode', 'Plaintiff', 'Plaintiff Address', 'Plaintiff City', 'Plaintiff Zipcode', 'Costs', 
+                    'Disposition Status', 'Disposition Date', 'Defendant Alias', 'Plaintiff Alias', 'Defendant Attorney', 
+                    'Defendant Attorney Address', 'Defendant Attorney City', 'Defendant Attorney Zipcode',
                     'Defendant Attorney Phone', 'Plaintiff Attorney', 'Plaintiff Attorney Address', 
-                    'Plaintiff Attorney City', 'Plaintiff Attorney Phone', 'Prayer Amount', 'Last Updated']
+                    'Plaintiff Attorney City', 'Plaintiff Attorney Zipcode', 'Plaintiff Attorney Phone', 'Prayer Amount', 'Last Updated']
 
         if os.path.isfile(self.outfile) == False:
             with open(self.outfile, 'w') as f:
@@ -617,15 +626,17 @@ class MuniCourtCrawler():
                     'Name': data_dictionary['Plaintiff'],
                     'Address':  { 
                         'Street Address': data_dictionary['Plaintiff Address'],
-                        'City': data_dictionary['Plaintiff City']
+                        'City': data_dictionary['Plaintiff City'],
+                        'Zipcode': data_dictionary['Plaintiff Zipcode']
                     },
                     'Alias': data_dictionary['Plaintiff Alias']
                 },
                 'Defendant(s)': {
                     'Name': data_dictionary['Defendants'],
                     'Address': { 
-                        'Street Address': data_dictionary['Property Address'],
-                        'City': data_dictionary['Property City']
+                        'Street Address': data_dictionary['Defendant Address'],
+                        'City': data_dictionary['Defendant City'],
+                        'Zipcode': data_dictionary['Defendant Zipcode']
                     },
                     'Alias': data_dictionary['Defendant Alias']
                 },
@@ -633,7 +644,8 @@ class MuniCourtCrawler():
                     'Name': data_dictionary['Plaintiff Attorney'],
                     'Address':  { 
                         'Street Address': data_dictionary['Plaintiff Attorney Address'],
-                        'City': data_dictionary['Plaintiff Attorney City']
+                        'City': data_dictionary['Plaintiff Attorney City'],
+                        'Zipcode': data_dictionary['Plaintiff Attorney Zipcode']
                     },
                     'Phone': data_dictionary['Plaintiff Attorney Phone']
                 },
@@ -641,14 +653,16 @@ class MuniCourtCrawler():
                     'Name': data_dictionary['Defendant Attorney'],
                     'Address':  { 
                         'Street Address': data_dictionary['Defendant Attorney Address'],
-                        'City': data_dictionary['Defendant Attorney City']
+                        'City': data_dictionary['Defendant Attorney City'],
+                        'Zipcode': data_dictionary['Defendant Attorney Zipcode']
                     },
                     'Phone': data_dictionary['Defendant Attorney Phone']
                 }
             },
             'Property Address': {
                 'Street Address': data_dictionary['Property Address'],
-                'City': data_dictionary['Property City']
+                'City': data_dictionary['Property City'],
+                'Zipcode': data_dictionary['Property Zipcode']
             },
             'Events': data_dictionary['Events'],
             'Docket Information': data_dictionary['Docket Information'],
@@ -671,19 +685,25 @@ class MuniCourtCrawler():
         address = contact_data.find('dl').find('dd')
         address_line_1 = address.find('div', attrs={'class': 'addrLn1'}).text
         # address_line_2 = address.find('div', attrs={'class': 'addrLn2'}).text
+
         try:
             city = address.find_all('span')[0].text.title() + ', ' + address.find_all('span')[1].text
         except:
             city = 'Cleveland, OH'
-
-        return ' '.join(address_line_1.split()), city.strip()
+        
+        try:
+            zipcode = address.find_all('span')[2].text.strip()
+        except:
+            zipcode = ''
+        
+        return ' '.join(address_line_1.split()), city.strip(), zipcode
     
 
     @staticmethod
     def get_attorney_info(row):
         attorney_data_div = row.find('h5', text='Party Attorney').parent.find('div')
         if not attorney_data_div:
-            return '', '', '', ''
+            return '', '', '', '', ''
         
         # Attorney Name
         attorney_name = attorney_data_div.find('dt', text=re.compile("Attorney*")).findNext('dd').text
@@ -707,13 +727,19 @@ class MuniCourtCrawler():
         city_spans = full_address_element.find_all('span')
         attorney_city = ', '.join([x.text.strip() for x in city_spans[:2]])
 
+        # Attroney Zipcode
+        try:
+            attorney_zipcode = city_spans[2].text.strip()
+        except:
+            attorney_zipcode = ''
+
         # Attorney Phone
         attorney_phone = attorney_data_div.find('dt', text=re.compile('Phone*')).findNext('dd').text
 
         if not MuniCourtCrawler.is_int(attorney_phone.replace('(', '').replace(')','').replace('-','').replace(' ','')):
             attorney_phone = ''
 
-        return attorney_name, attorney_address, attorney_city, attorney_phone
+        return attorney_name, attorney_address, attorney_city, attorney_phone, attorney_zipcode
     
     @staticmethod
     def process_event_data(soup):
