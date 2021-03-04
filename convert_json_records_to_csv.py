@@ -8,11 +8,12 @@ from datetime import datetime
 
 
 ALL_CSV_FIELDS = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action',
-            'Defendants', 'Property Address', 'Property City', 'Plaintiff', 'Plaintiff Address',
-            'Plaintiff City', 'Costs', 'Disposition Status', 'Disposition Date', 'Defendant Alias',
-            'Plaintiff Alias', 'Defendant Attorney', 'Defendant Attorney Address', 'Defendant Attorney City',
-            'Defendant Attorney Phone', 'Plaintiff Attorney', 'Plaintiff Attorney Address', 
-            'Plaintiff Attorney City', 'Plaintiff Attorney Phone', 'Prayer Amount', 'Last Updated']
+                    'Defendants', 'Defendant Address', 'Defendant City', 'Defendant Zipcode', 'Property Address', 'Property City',
+                    'Property Zipcode', 'Plaintiff', 'Plaintiff Address', 'Plaintiff City', 'Plaintiff Zipcode', 'Costs', 
+                    'Disposition Status', 'Disposition Date', 'Defendant Alias', 'Plaintiff Alias', 'Defendant Attorney', 
+                    'Defendant Attorney Address', 'Defendant Attorney City', 'Defendant Attorney Zipcode',
+                    'Defendant Attorney Phone', 'Plaintiff Attorney', 'Plaintiff Attorney Address', 
+                    'Plaintiff Attorney City', 'Plaintiff Attorney Zipcode', 'Plaintiff Attorney Phone', 'Prayer Amount', 'Last Updated']
 
 TOP_LEVEL_FIELDS = ['Case Name', 'Case Number', 'Case Status', 'File Date', 'Action', 'Prayer Amount', 'Last Updated']
 
@@ -25,9 +26,13 @@ def flatten_record(record_dict):
     flat_record['Plaintiff'] = record_dict['Party Information']['Plaintiff']['Name']
     flat_record['Plaintiff Address'] = record_dict['Party Information']['Plaintiff']['Address']['Street Address']
     flat_record['Plaintiff City'] = record_dict['Party Information']['Plaintiff']['Address']['City']
+    flat_record['Plaintiff Zipcode'] = record_dict['Party Information']['Plaintiff']['Address']['Zipcode']
     flat_record['Plaintiff Alias'] = record_dict['Party Information']['Plaintiff']['Alias']
 
     flat_record['Defendants'] = record_dict['Party Information']['Defendant(s)']['Name']
+    flat_record['Defendant Address'] = record_dict['Party Information']['Defendant(s)']['Address']['Street Address']
+    flat_record['Defendant City'] = record_dict['Party Information']['Defendant(s)']['Address']['City']
+    flat_record['Defendant Zipcode'] = record_dict['Party Information']['Defendant(s)']['Address']['Zipcode']
     flat_record['Defendant Alias'] = record_dict['Party Information']['Defendant(s)']['Alias']
 
     flat_record['Disposition Status'] = record_dict['Disposition']['Disposition Status']
@@ -35,15 +40,18 @@ def flatten_record(record_dict):
 
     flat_record['Property Address'] = record_dict['Property Address']['Street Address']
     flat_record['Property City'] = record_dict['Property Address']['City']
+    flat_record['Property Zipcode'] = record_dict['Property Address']['Zipcode']
 
     flat_record['Plaintiff Attorney'] = record_dict['Party Information']['Plaintiff Attorney']['Name']
     flat_record['Plaintiff Attorney Address'] = record_dict['Party Information']['Plaintiff Attorney']['Address']['Street Address']
     flat_record['Plaintiff Attorney City'] = record_dict['Party Information']['Plaintiff Attorney']['Address']['City']
+    flat_record['Plaintiff Attorney Zipcode'] = record_dict['Party Information']['Plaintiff Attorney']['Address']['Zipcode']
     flat_record['Plaintiff Attorney Phone'] = record_dict['Party Information']['Plaintiff Attorney']['Phone']
-
+    
     flat_record['Defendant Attorney'] = record_dict['Party Information']['Defendant Attorney']['Name']
     flat_record['Defendant Attorney Address'] = record_dict['Party Information']['Defendant Attorney']['Address']['Street Address']
     flat_record['Defendant Attorney City'] = record_dict['Party Information']['Defendant Attorney']['Address']['City']
+    flat_record['Plaintiff Attorney Zipcode'] = record_dict['Party Information']['Defendant Attorney']['Address']['Zipcode']
     flat_record['Defendant Attorney Phone'] = record_dict['Party Information']['Defendant Attorney']['Phone']
     
     flat_record['Costs'] = record_dict['Total Costs']
