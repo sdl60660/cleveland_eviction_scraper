@@ -158,7 +158,7 @@ def main():
     
     convert_to_csv(latest_file, latest_file.replace('.json', '.csv'))
     for local_filepath in [latest_file, latest_file.replace('.json', '.csv')]:
-        upload_or_update_file(service, local_filepath=local_filepath, parent_foldername='Weekly Update Data (New/Updated Records)')
+        upload_or_update_file(service, local_filepath=local_filepath, parent_foldername='Daily Update Data (New/Updated Records)')
         # os.remove(local_filepath)
 
 
